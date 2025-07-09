@@ -168,6 +168,8 @@ class TranslatorAgent(BaseToolAgent):
         placeholders_cap = re.findall(placeholder_pattern_cap, section["content"])
         placeholders_env = re.findall(placeholder_pattern_env, section["content"])
 
+        # sb
+
         if(section["section"] == -1 or section["section"] == 0):
             section = section
         else:
