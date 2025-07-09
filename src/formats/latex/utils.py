@@ -899,6 +899,7 @@ def batch_download_arxiv_tex(arxiv_ids: List[str], save_dir: str = "./tex_source
 
     return source_dirs
 
+
 def get_arxiv_category(arxiv_ids: List[str]) -> dict:
     results = {}
     headers = {"User-Agent": "Mozilla/5.0"}

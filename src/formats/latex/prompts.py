@@ -7,6 +7,12 @@ base_dir = os.getcwd()
 sys.path.append(base_dir)
 
 
+parser = argparse.ArgumentParser()
+parser.add_argument("--config", type=str, default="config/default.toml")
+args = parser.parse_args()
+config = toml.load(args.config)
+
+target_language = config.get("target_language", "ch")
 
 caption_system_prompt = """
 You are a professional academic translator specializing in LaTeX-based scientific writing. 
@@ -44,6 +50,7 @@ em, ex, in, pt, pc, cm, mm, dd, cc, nd, nc, bp, sp. Example: \vspace{-1.125cm} o
 8.Ensure that the translated text is accurate, coherent, and follows academic writing conventions in the target language.Maintain consistent academic terminology and use standard abbreviations where appropriate.
 9.Directly output only the translated LaTeX code without any additional explanations, formatting markers, or comments such as "```latex".
 10.<PLACEHOLDER_CAP_...>,<PLACEHOLDER_ENV_...>,<PLACEHOLDER_..._begin> and <PLACEHOLDER_..._end> are placeholders for artificial environments or captions. Please do not let them affect your translation and keep these placeholders after translation.
+11.Name retention principle,always keep author names (e.g., "Daya Guo", "Dejian Yang") in their original English form. Never translate, transliterate, or reorder names (e.g., "Daya Guo" → "Daya Guo", NOT "郭达雅" or "Guo Daya"). 
 """
 env_system_prompt = """
 You are a professional academic translator specializing in LaTeX-based scientific writing. 
