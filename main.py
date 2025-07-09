@@ -3,7 +3,7 @@ import argparse
 import os
 import sys
 from src.agents.coordinator_agent import CoordinatorAgent
-from src.formats.latex.utils import get_profect_dirs, batch_download_arxiv_tex, extract_compressed_files
+from src.formats.latex.utils import get_profect_dirs, batch_download_arxiv_tex, extract_compressed_files, get_arxiv_category
 from tqdm import tqdm
 
 base_dir = os.getcwd()
@@ -31,6 +31,7 @@ def main():
 
     if paper_list:
         projects = batch_download_arxiv_tex(paper_list, projects_dir)
+        config["category"] = get_arxiv_category(paper_list)
         extract_compressed_files(projects_dir)
     else:
         print("⚠️ No paper list provided. Using existing projects in the specified directory.")
@@ -40,6 +41,7 @@ def main():
             raise ValueError("❌ No projects found. Check 'tex_sources_dir' and 'paper_list' in config.")
 
     for project_dir in tqdm(projects, desc="Processing projects", unit="project"):
+
         try:
             LaTexTrans = CoordinatorAgent(
                 config=config,
