@@ -29,7 +29,11 @@ class TranslatorAgent(BaseToolAgent):
                  ):
         super().__init__(agent_name="TranslatorAgent", config=config)
         self.config = config
-        self.update_term = config.get("update_term", False)
+        if(config.get("update_term") == "False"):
+            self.update_term = False
+        else:
+            self.update_term = True
+        # self.update_term = config.get("update_term", False)
         self.model = config["llm_config"].get("model", "gpt-4o")
         self.base_url = config["llm_config"].get("base_url", None)
         self.API_KEY = config["llm_config"].get("api_key", None)
@@ -66,7 +70,7 @@ class TranslatorAgent(BaseToolAgent):
             self.log(f"🤖💬 Starting translating for project...⏳: {os.path.basename(self.project_dir)}.")
 
             async with aiohttp.ClientSession() as session:
-                sem = asyncio.Semaphore(50)  # 考虑到api响应速度,大概10s左右处理一个section,每半秒启动一次调用,10左右应该不会浪费api token
+                sem = asyncio.Semaphore(10)  # 考虑到api响应速度,大概10s左右处理一个section,每半秒启动一次调用,10左右应该不会浪费api token
 
                 async def process_section(i, sec):
                     async with sem:
@@ -164,7 +168,10 @@ class TranslatorAgent(BaseToolAgent):
         placeholders_cap = re.findall(placeholder_pattern_cap, section["content"])
         placeholders_env = re.findall(placeholder_pattern_env, section["content"])
 
-        section = await self._translate_section(section, session)  # 注意异步调用
+        if(section["section"] == -1 or section["section"] == 0):
+            section = section
+        else:
+            section = await self._translate_section(section, session)  # 注意异步调用
 
         for placeholder in placeholders_env:
             for i, env in enumerate(envs):
@@ -1035,7 +1042,7 @@ class TranslatorAgent(BaseToolAgent):
                 chinese = match.group(2)
                 new_term_dict[english] = chinese
 
-        for en, zh in new_term_dict:
+        for en, zh in new_term_dict.items():
             if en not in self.term_dict:
                 self.term_dict[en] = zh
 

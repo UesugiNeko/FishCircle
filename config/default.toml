@@ -10,6 +10,6 @@ category = {}
 update_term = ""
 
 [llm_config]
-model = "deepseek-v3"
-api_key = "sk-OjzR0XKuOj6MxYAEFdB3292eE7Ce4b4fA4BbFe486aA1B375"
-base_url = "https://api.bltcy.ai/v1/chat/completions"
+model = "deepseek-chat"
+api_key = "sk-dbce8c36715e412a99fde80c9614661e"
+base_url = "https://api.deepseek.com/chat/completions"
