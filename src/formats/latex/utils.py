@@ -16,6 +16,7 @@ import requests
 from bs4 import BeautifulSoup
 from tqdm import tqdm
 from typing import List
+import time
 
 options = r"\[[^\[\]]*?\]"
 spaces = r"[ \t]*"
@@ -484,26 +485,26 @@ def get_texts_from_data(folder_path, output_folder):
             print(f"Error processing project {project}: {e}")
             continue  # 跳过出错的项目
 
-def if_has_appendix(folder_path):
-    """
-    检测 LaTeX 源码中是否包含 \\appendix。
-    
-    Args:
-        folder_path (str): LaTeX 源码所在文件夹的路径。
-    
-    Returns:
-        bool: 如果包含 \\appendix，则返回 True；否则返回 False。
-    """
-    projects = get_profect_dirs(folder_path)
-    project_app = []
-    for project in projects:
-        main_file_path = find_main_tex_file(project)
-        if main_file_path is None:
-            raise FileNotFoundError(f"File not found: {main_file_path}")
-        full_latex_code = merge_tex_files(main_file_path)
-        if has_appendix(full_latex_code):
-            project_app.append(project)
-    return project_app
+# def if_has_appendix(folder_path):
+#     """
+#     检测 LaTeX 源码中是否包含 \\appendix。
+#
+#     Args:
+#         folder_path (str): LaTeX 源码所在文件夹的路径。
+#
+#     Returns:
+#         bool: 如果包含 \\appendix，则返回 True；否则返回 False。
+#     """
+#     projects = get_profect_dirs(folder_path)
+#     project_app = []
+#     for project in projects:
+#         main_file_path = find_main_tex_file(project)
+#         if main_file_path is None:
+#             raise FileNotFoundError(f"File not found: {main_file_path}")
+#         full_latex_code = merge_tex_files(main_file_path)
+#         if has_appendix(full_latex_code):
+#             project_app.append(project)
+#     return project_app
 
 def extract_pure_tags(dir):
     main_file_path = find_main_tex_file(dir)
@@ -897,6 +898,40 @@ def batch_download_arxiv_tex(arxiv_ids: List[str], save_dir: str = "./tex_source
             print(f"[SKIP] No TeX source found for {arxiv_id}. Please check the arXiv ID or the availability of the source.")
 
     return source_dirs
+
+def get_arxiv_category(arxiv_ids: List[str]) -> dict:
+    results = {}
+    headers = {"User-Agent": "Mozilla/5.0"}
+    for arxiv_id in arxiv_ids:
+        abs_url = f"https://arxiv.org/abs/{arxiv_id}"
+        categories = []
+
+        try:
+            resp = requests.get(abs_url, headers=headers, timeout=10)
+            resp.raise_for_status()
+            soup = BeautifulSoup(resp.text, "html.parser")
+
+            subjects_div = soup.find("div", class_="subjects")
+            if subjects_div:
+                matches = re.findall(r"\(([a-z]+\.[A-Z]+)\)", subjects_div.text)
+                categories.extend(matches)
+            else:
+                td_subjects = soup.find("td", class_="tablecell subjects")
+                if td_subjects:
+                    matches = re.findall(r'\(([a-z]+\.[A-Z]+)\)', td_subjects.text)
+                    categories.extend(matches)
+
+            if not categories:
+                print(f"[WARNING] No categories found for {arxiv_id}")
+
+        except requests.RequestException as e:
+            print(f"[ERROR] Failed to fetch {arxiv_id}: {e}")
+            categories = []
+
+        results[arxiv_id] = (categories)
+        time.sleep(1)  # 防止请求过快
+
+    return results
 
 # get_texts_from_data(
 #     folder_path="D:\code\AutoLaTexTrans\data\cs",
