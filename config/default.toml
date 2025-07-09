@@ -7,7 +7,7 @@ paper_list = ["2501.12948"] # List of paper IDs to process, e.g., ["2505.19590",
 tex_sources_dir = "tex source" # Directory to store LaTeX source files
 output_dir = "outputs" # Directory to store output files
 category = {}
-update_term = ""
+update_term = "False"
 
 [llm_config]
 model = "deepseek-chat"

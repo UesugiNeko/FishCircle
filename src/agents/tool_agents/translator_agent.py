@@ -29,10 +29,10 @@ class TranslatorAgent(BaseToolAgent):
                  ):
         super().__init__(agent_name="TranslatorAgent", config=config)
         self.config = config
-        if(config.get("update_term") == "False"):
-            self.update_term = False
-        else:
+        if(config.get("update_term") == "True"):
             self.update_term = True
+        else:
+            self.update_term = False
         # self.update_term = config.get("update_term", False)
         self.model = config["llm_config"].get("model", "gpt-4o")
         self.base_url = config["llm_config"].get("base_url", None)
@@ -170,7 +170,7 @@ class TranslatorAgent(BaseToolAgent):
 
         # sb
 
-        if(section["section"] == -1 or section["section"] == 0):
+        if(section["section"] == "-1" or section["section"] == "0"):
             section = section
         else:
             section = await self._translate_section(section, session)  # 注意异步调用
@@ -232,7 +232,7 @@ class TranslatorAgent(BaseToolAgent):
         if sec_nums:
             self.log(f"Retranslating for {sec_nums}")
             for sec_num in sec_nums:
-                if sec_num == -1 or sec_num == 0:
+                if sec_num == "-1" or sec_num == "0":
                     continue
                 if sec_num in sec_dict:
                     i = sec_dict[sec_num]
@@ -579,6 +579,10 @@ class TranslatorAgent(BaseToolAgent):
                                           fail_part: str,
                                           type: str,
                                           session: aiohttp.ClientSession) -> str:
+
+        if fail_part == "-1" or "0":
+            return text
+
 
         payload = {
             "model": f"{self.model}",

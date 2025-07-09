@@ -103,6 +103,8 @@ class CoordinatorAgent:
         # 运行异步工作流
         self.loop.run_until_complete(self.workflow_latextrans_async())
 
+        self.loop.close()
+
 
 
 
