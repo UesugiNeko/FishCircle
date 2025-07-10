@@ -1,2 +1,27 @@
-/.idea/
-/config/
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# C extensions
+*.so
+
+# Distribution / packaging
+/dist/
+/build/
+*.egg-info/
+
+# Logs and databases
+*.log
+*.sql
+*.sqlite
+
+# IDEs and editors
+.idea/
+.vscode/
+*.iml
+
+
+*.toml
+setup.py

@@ -9,6 +9,7 @@ from tqdm import tqdm
 base_dir = os.getcwd()
 sys.path.append(base_dir)
 
+
 def main():
     """
     Main function to run the LaTeXTrans application.
