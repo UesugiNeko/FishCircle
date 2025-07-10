@@ -19,9 +19,11 @@ def main():
     parser.add_argument("--config", type=str, default="config/default.toml", help="Path to the config TOML file.")
     parser.add_argument("paper_ids", nargs="*", help="Optional list of arXiv paper IDs to override config.")
     parser.add_argument("--model", type=str, default="deepseek-v3", help="Model for translating.")
-    parser.add_argument("--tl", type=str, default="ch", help="Target language.")
-    parser.add_argument("--sl", type=str, default="en", help="Source language.")
-    parser.add_argument("--ut", type=str, default="", help="User's term dict.")
+    parser.add_argument("--base_url", type=str, default="", help="Model for translating.")
+    parser.add_argument("--api_key", type=str, default="", help="Model for translating.")
+    # parser.add_argument("--tl", type=str, default="ch", help="Target language.")
+    # parser.add_argument("--sl", type=str, default="en", help="Source language.")
+    # parser.add_argument("--ut", type=str, default="", help="User's term dict.")
 
 
     args = parser.parse_args()
