@@ -17,11 +17,20 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--config", type=str, default="config/default.toml", help="Path to the config TOML file.")
     parser.add_argument("paper_ids", nargs="*", help="Optional list of arXiv paper IDs to override config.")
+    parser.add_argument("--model", type=str, default="deepseek-v3", help="Model for translating.")
+    parser.add_argument("--tl", type=str, default="ch", help="Target language.")
+    parser.add_argument("--sl", type=str, default="en", help="Source language.")
+    parser.add_argument("--ut", type=str, default="", help="User's term dict.")
+
+
     args = parser.parse_args()
+
+    args_dict = vars(args)
 
     config = toml.load(args.config)
 
     # override paper_list if user passed in IDs via CLI
+    # 之后设置参数时，config和args的传递参考这个
     if args.paper_ids:
         config["paper_list"] = args.paper_ids
 

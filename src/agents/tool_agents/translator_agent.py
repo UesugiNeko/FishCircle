@@ -1122,6 +1122,7 @@ class TranslatorAgent(BaseToolAgent):
 
 
     def build_term_dict(self):
+
         arxiv_id = os.path.basename(self.project_dir)
         if self.category.get(arxiv_id):
             term_dict_loaded = False

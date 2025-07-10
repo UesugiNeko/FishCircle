@@ -1,305 +1,305 @@
-Supervised Learning,¼à¶½Ñ§Ï°
-Unsupervised Learning,ÎŞ¼à¶½Ñ§Ï°
-Semi-supervised Learning,°ë¼à¶½Ñ§Ï°
-Reinforcement Learning,Ç¿»¯Ñ§Ï°
-Active Learning,Ö÷¶¯Ñ§Ï°
-Online Learning,ÔÚÏßÑ§Ï°
-Transfer Learning,Ç¨ÒÆÑ§Ï°
-Automated Machine Learning (AutoML),×Ô¶¯»úÆ÷Ñ§Ï°
-Representation Learning,±íÊ¾Ñ§Ï°
-Minkowski distance,ãÉ¿É·òË¹»ù¾àÀë
-Gradient Descent,Ìİ¶ÈÏÂ½µ
-Stochastic Gradient Descent,Ëæ»úÌİ¶ÈÏÂ½µ
-Over-fitting,¹ıÄâºÏ
-Regularization,ÕıÔò»¯
-Cross Validation,½»²æÑéÖ¤
-Perceptron,¸ĞÖª»ú
-Logistic Regression,Âß¼­»Ø¹é
-Maximum Likelihood Estimation,×î´óËÆÈ»¹À¼Æ
-Newton's method,Å£¶Ù·¨
-K-Nearest Neighbor,K½üÁÚ·¨
-Mahalanobis Distance,ÂíÊÏ¾àÀë
-Decision Tree,¾ö²ßÊ÷
-Naive Bayes Classifier,ÆÓËØ±´Ò¶Ë¹·ÖÀàÆ÷
-Generalization Error,·º»¯Îó²î
-PAC Learning,¸ÅÂÊ½üËÆÕıÈ·Ñ§Ï°
-Empirical Risk Minimization,¾­Ñé·çÏÕ×îĞ¡»¯
-Growth Function,³É³¤º¯Êı
-VC-dimension,VCÎ¬
-Structural Risk Minimization,½á¹¹·çÏÕ×îĞ¡»¯
-Eigendecomposition,ÌØÕ÷·Ö½â
-Singular Value Decomposition,ÆæÒìÖµ·Ö½â
-Moore-Penrose Pseudoinverse,Ä¦¶û-ÅíÈôË¹¹ãÒåÄæ
-Marginal Probability,±ßÔµ¸ÅÂÊ
-Conditional Probability,Ìõ¼ş¸ÅÂÊ
-Expectation,ÆÚÍû
-Variance,·½²î
-Covariance,Ğ­·½²î
-Critical points,ÁÙ½çµã
-Support Vector Machine,Ö§³ÖÏòÁ¿»ú
-Decision Boundary,¾ö²ß±ß½ç
-Convex Set,Í¹¼¯
-Lagrange Duality,À­¸ñÀÊÈÕ¶ÔÅ¼ĞÔ
-KKT Conditions,KKTÌõ¼ş
-Coordinate ascent,×ø±êÏÂ½µ·¨
-Sequential Minimal Optimization (SMO),ĞòÁĞ×îĞ¡ÓÅ»¯
-Node Embedding,½ÚµãÇ¶Èë
-Graph Neural Network,Í¼Éñ¾­ÍøÂç
-Node Classification,½Úµã·ÖÀà
-Link Prediction,Á´Â·Ô¤²â
-Community Detection,ÉçÇø·¢ÏÖ
-Isomorphism,Í¬¹¹
-Random Walk,Ëæ»úÓÎ×ß
-Spectral Clustering,Æ×¾ÛÀà
-Asynchronous Stochastic Gradient Algorithm,Òì²½Ëæ»úÌİ¶ÈËã·¨
-Negative Sampling,¸º²ÉÑù
-Network Embedding,ÍøÂçÇ¶Èë
-Graph Theory,Í¼ÂÛ
-multiset,¶àÖØ¼¯
-Perron-Frobenius Theorem,ÅåÁú-¸¥ÀÊ±´ÂŞÄáÎÚË¹¶¨Àí
-Stationary Distribution,ÎÈÌ¬·Ö²¼
-Matrix Factorization,¾ØÕó·Ö½â
-Sparsification,Ï¡Êè»¯
-Frobenius Norm,F-·¶Êı
-Heterogeneous Network,Òì¹¹ÍøÂç
-Graph Convolutional Network (GCN),Í¼¾í»ıÍøÂç
-CNN,¾í»ıÉñ¾­ÍøÂç
-Semi-Supervised Classification,°ë¼à¶½·ÖÀà
-Chebyshev polynomial,ÇĞ±ÈÑ©·ò¶àÏîÊ½
-Gradient Exploding,Ìİ¶È±¬Õ¨
-Gradient Vanishing,Ìİ¶ÈÏûÊ§
-Batch Normalization,Åú±ê×¼»¯
-Neighborhood Aggregation,ÁÚÓò¾ÛºÏ
-LSTM,³¤¶ÌÆÚ¼ÇÒäÍøÂç
-Graph Attention Network,Í¼×¢ÒâÁ¦ÍøÂç
-Self-attention,×Ô×¢ÒâÁ¦»úÖÆ
-Rescaling,ÔÙËõ·Å
-Attention Mechanism,×¢ÒâÁ¦»úÖÆ
-Jensen-Shannon Divergence,JSÉ¢¶È
-Cognitive Graph,ÈÏÖªÍ¼Æ×
-Generative Adversarial Network(GAN),Éú³É¶Ô¿¹ÍøÂç
-Generative Model,Éú³ÉÄ£ĞÍ
-Discriminative Model,ÅĞ±ğÄ£ĞÍ
-Gaussian Mixture Model,¸ßË¹»ìºÏÄ£ĞÍ
-Variational Auto Encoder (VAE),±ä·Ö±àÂëÆ÷
-Markov Chain,Âí¶û¿É·òÁ´
-Boltzmann Machine,²£¶û×ÈÂü»ú
-Kullback-Leibler divergence,KLÉ¢¶È
-Surrogate Loss,Ìæ´úËğÊ§
-Mode Collapse,Ä£Ê½±ÀÀ£
-Earth-Mover/Wasserstein-1 Distance,Å×ÍÁ¾àÀë/EMD
-Lipschitz Continuity,ÀûÆÕÏ£´ÄÁ¬Ğø
-Feedforward Network,Ç°À¡ÍøÂç
-Minimax Game,¼«Ğ¡¼¶´ó²©ŞÄ
-Adversarial Learning,¶Ô¿¹Ñ§Ï°
-Outlier,Òì³£Öµ/¸ßÎ¬Öµ
-Rectified Linear Unit,ÏßĞÔĞŞÕıµ¥Ôª
-Softmax Regression,Softmax»Ø¹é
-Viterbi algorithm,Î¬ÌØ±ÈËã·¨
-Gibbs distribution,¼ª²¼Ë¹·Ö²¼
-Maximum Entropy Markov Model,×î´óìØÂí¶û¿É·òÄ£ĞÍ
-Information Extraction,ĞÅÏ¢ÌáÈ¡
-clique,ÍÅ
-conditional random field,Ìõ¼şËæ»ú³¡
-triad,ÈıÔª¹ØÏµ
-Naive Bayes,ÆÓËØ±´Ò¶Ë¹
-social network,Éç½»ÍøÂç
-Bayesian network,±´Ò¶Ë¹ÍøÂç
-Joint probability distribution,ÁªºÏ¸ÅÂÊ·Ö²¼
-Conditional independence,Ìõ¼ş¶ÀÁ¢ĞÔ
-sequence analysis,ĞòÁĞ·ÖÎö
-Markov Blanket,Âí¶û¿É·òÌº
-Hidden Markov Model,ÒşÂí¶û¿É·òÄ£ĞÍ
-finite-state,ÓĞÏŞ×´Ì¬
-Shallow parsing,Ç³²ã·ÖÎö
-Speech recognition,ÓïÒôÊ¶±ğ
-convex,Í¹
-transition matrix,×ªÒÆ¾ØÕó
-factor graph,Òò×ÓÍ¼
-forward-backward algorithm,Ç°ÏòºóÏòËã·¨
-parsing,Óï·¨·ÖÎö
-structural holes,½á¹¹¶´
-graphical model,Í¼Ä£ĞÍ
-Markov Random Field,Âí¶û¿É·òËæ»ú³¡
-Social balance theory,Éç»áÆ½ºâÀíÂÛ
-probalistic topic model,¸ÅÂÊÓïÒåÄ£ĞÍ
-TFIDF,´ÊÆµ-ÄæÎÄµµÆµÂÊ
-LSI,Ç±ÔÚÓïÒåË÷Òı
-restricted boltzmann machine,ÏŞÖÆ²£¶û×ÈÂü»ú
-LDA,ÒşÊ½µÒÀû¿ËÀ×·ÖÅäÄ£ĞÍ
-PLSI,¸ÅÂÊÇ±ÔÚÓïÒå·ÖÎöÄ£ĞÍ
-EM algorithm,×î´óÆÚÍûËã·¨
-Gibbs sampling,¼ª²¼Ë¹²ÉÑù·¨
-MAP (Maximum A Posteriori),×î´óºóÑé¸ÅÂÊ·¨
-Markov Chain Monte Carlo,Âí¶û¿É·òÁ´ÃÉÌØ¿¨Âå
-Monte Carlo Sampling,ÃÉÌØ¿¨Âå²ÉÑù·¨
-Univariate,µ¥±äÁ¿
-Hoeffding Bound,»ô·ò¶¡½ç
-Chernoff Bound,ÇĞÅµ·ò½ç
-Importance Sampling,¼ÓÈ¨²ÉÑù·¨
-invariant distribution,²»±ä·Ö²¼
-Metropolis-Hastings algorithm,Metropolis-HastingsËã·¨
-Probabilistic Inference,¸ÅÂÊÍÆ¶Ï
-Variational Inference,±ä·ÖÍÆ¶Ï
-HMM,ÒşÂí¶û¿É·òÄ£ĞÍ
-mean field,Æ½¾ù³¡
-mixture model,»ìºÏÄ£ĞÍ
-Ensemble Learning (Bagging),¼¯³ÉÑ§Ï°
-Bootstrap Aggregating (Bagging),×°´üËã·¨
-Random Forests,Ëæ»úÉ­ÁÖ
-Boosting,ÌáÉı·½·¨
-Stacking,¶Ñµş·½·¨
-Classification Tree,·ÖÀàÊ÷
-Adaptive Boosting (AdaBoost),×ÔÊÊÓ¦ÌáÉı
-Decision Stump,¾ö²ßÊ÷×®
-Meta Learning,ÔªÑ§Ï°
-Deep Feedforward Network (DPN),Éî¶ÈÇ°ÏòÍøÂç
-Backpropagation,·´Ïò´«²¥
-Activation Function,¼¤»îº¯Êı
-Multi-layer Perceptron (MLP),¶à²ã¸ĞÖª»ú
-Mean-Squared Error (MSE),¾ù·½Îó²î
-Chain Rule,Á´Ê½·¨Ôò
-Logistic Function,Âß¼­º¯Êı
-Hyperbolic Tangent,Ë«ÇúÕıÇĞº¯Êı
-Rectified Linear Units (ReLu),ÕûÁ÷ÏßĞÔµ¥Ôª
-Residual Neural Networks (ResNet),²Ğ²îÉñ¾­ÍøÂç
-Overfitting,¹ıÄâºÏ
-Data(set) Augmentation,Êı¾İÔöÇ¿
-Parameter Sharing,²ÎÊı¹²Ïí
-Dropout,Ëæ»ú¶ªÆú
-L2 Regularization,L2ÕıÔò»¯
-Taylor Series Approximation,Ì©ÀÕ¼¶Êı½üËÆ
-Taylor Expansion,Ì©ÀÕÕ¹¿ª
-Bayesian Prior,±´Ò¶Ë¹ÏÈÑé
-Bayesian Inference,±´Ò¶Ë¹ÍÆÀí
-Gaussian Prior,¸ßË¹ÏÈÑé
-Maximum-a-Posterior (MAP),×î´óºóÑé
-Linear Regression,ÏßĞÔ»Ø¹é
-L1 Regularization,L1ÕıÔò»¯
-Constrained Optimization,Ô¼ÊøÓÅ»¯
-Lagrange Function,À­¸ñÀÊÈÕº¯Êı
-Denoising Autoencoder,½µÔë×Ô¶¯±àÂëÆ÷
-Label Smoothing,±êÇ©Æ½»¬
-Eigen Decomposition,ÌØÕ÷·Ö½â
-Convolutional Neural Networks (CNNs),¾í»ıÉñ¾­ÍøÂç
-Multi-Task Learning,¶àÈÎÎñÑ§Ï°
-Multivariate Normal Distribution,¶àÔªÕıÌ¬·Ö²¼
-Sparse Parametization,Ï¡Êè²ÎÊı»¯
-Sparse Representation,Ï¡Êè±íÊ¾
-Orthogonal Matching Pursuit (OMP),Õı½»Æ¥Åä×·×ÙËã·¨
-Root-Mean-Square Error (RMSE),¾ù·½¸ùÎó²î
-Collaborative Filtering (CF),Ğ­Í¬¹ıÂË
-Nonnegative Matrix Factorization (NMF),·Ç¸º¾ØÕó·Ö½â
-Latent Sematic Analysis (LSA),Ç±ÔÚÓïÒå·ÖÎö
-Bayesian Probabilistic Matrix Factorization (BPMF),±´Ò¶Ë¹¸ÅÂÊ¾ØÕó·Ö½â
-Wishart Prior,WishartÏÈÑé
-Sparse Coding,Ï¡Êè±àÂë
-Factorization Machines (FM),·Ö½â»ú
-second-order method,¶ş½×·½·¨
-cost function,´ú¼Ûº¯Êı
-training set,ÑµÁ·¼¯
-objective function,Ä¿±êº¯Êı
-data generating distribution,Êı¾İÉú³É·Ö²¼
-empirical risk,¾­Ñé·çÏÕ
-feasible,¿ÉĞĞ
-loss function,ËğÊ§º¯Êı
-derivative,µ¼Êı
-surrogate loss function,´úÀíËğÊ§º¯Êı
-early stopping,ÌáÇ°ÖÕÖ¹
-Hessian matrix,ºÚÈû¾ØÕó
-second derivative,¶ş½×µ¼Êı
-Taylor series,Ì©ÀÕ¼¶Êı
-Ill-conditioning,²¡Ì¬µÄ
-critical point,ÁÙ½çµã
-local minimum,¾Ö²¿¼«Ğ¡µã
-local maximum,¾Ö²¿¼«´óµã
-saddle point,°°µã
-global minimum,È«¾Ö×îĞ¡µã
-convex function,Í¹º¯Êı
-weight space symmetry,È¨ÖØ¿Õ¼ä¶Ô³ÆĞÔ
-fully-connected networks,È«Á¬½ÓÍøÂç
-gradient clipping,Ìİ¶È½Ø¶Ï
-recurrent neural network,Ñ­»·Éñ¾­ÍøÂç
-long-term dependency,³¤ÆÚÒÀÀµ
-eigen-decomposition,ÌØÕ÷Öµ·Ö½â
-vanishing and exploding gradient problem,Ìİ¶ÈÏûÊ§Óë±¬Õ¨ÎÊÌâ
-contrastive divergence,¶Ô±ÈÉ¢¶È
-validation set,ÑéÖ¤¼¯
-learning rate,Ñ§Ï°ËÙÂÊ
-momentum,¶¯Á¿
-poor conditioning,²¡Ì¬Ìõ¼ş
-nesterov momentum,Nesterov¶¯Á¿
-partial derivative,Æ«µ¼Êı
-moving average,ÒÆ¶¯Æ½¾ù
-quadratic function,¶ş´Îº¯Êı
-positive definite,Õı¶¨
-quasi-newton method,ÄâÅ£¶Ù·¨
-conjugate gradient,¹²éîÌİ¶È
-steepest descent,×îËÙÏÂ½µ
-reparametization,ÖØ²ÎÊı»¯
-standard deviation,±ê×¼²î
-coordinate descent,×ø±êÏÂ½µ
-skip connection,ÌøÔ¾Á¬½Ó
-pooling,³Ø»¯
-hyperparameter,³¬²ÎÊı
-sparse connectivity,Ï¡ÊèÁ¬½Ó
-receptive field,¸ĞÊÜÒ°
-sliced convolution,ÇĞÆ¬¾í»ı
-Object Detection,Ä¿±ê¼ì²â
-error rate,´íÎóÂÊ
-autoencoder,×Ô±àÂëÆ÷
-pretraining,Ô¤ÑµÁ·
-dimensionality reduction,½µÎ¬
-feedforward neural network,Ç°À¡Éñ¾­ÍøÂç
-encoder,±àÂëÆ÷
-decoder,½âÂëÆ÷
-cross-entropy,½»²æìØ
-sliced weights,ÇĞÆ¬È¨ÖØ
-PCA,Ö÷³É·Ö·ÖÎö
-principal component analysis,Ö÷³É·Ö·ÖÎö
-singular value,ÆæÒìÖµ
-reconstruction error,ÖØ¹¹Îó²î
-covariance matrix,Ğ­·½²î¾ØÕó
-denoising autoencoder,È¥Ôë×Ô±àÂëÆ÷
-sparse autoencoder,Ï¡Êè×Ô±àÂëÆ÷
-contraction autoencoder,ÊÕËõ×Ô±àÂëÆ÷
-fine-tune,Î¢µ÷
-local optima,¾Ö²¿×îÓÅ
-posterior distribution,ºóÑé·Ö²¼
-gaussian distribution,¸ßË¹·Ö²¼
-artificial neural network,ÈË¹¤Éñ¾­ÍøÂç
-sentiment analysis,Çé¸Ğ·ÖÎö
-machine translation,»úÆ÷·­Òë
-pos tagging,´ÊĞÔ±ê×¢
-teacher forcing,½ÌÊ¦Ç¿ÖÆ
-back-propagation through time,Í¨¹ıÊ±¼ä·´Ïò´«²¥
-directed graphical model,ÓĞÏòÍ¼Ä£ĞÍ
-question answering,ÎÊ´ğÏµÍ³
-jacobi matrix,ÑÅ¿É±È¾ØÕó
-clip gradient,Ìİ¶È²Ã¼ô
-long short-term memory,³¤¶ÌÆÚ¼ÇÒä
-gated recurrent unit,ÃÅ¿ØÑ­»·µ¥Ôª
-hadamard product,Hadamard³Ë»ı
-named entity recognition,ÃüÃûÊµÌåÊ¶±ğ
-Distributed Representation,·Ö²¼Ê½±íÕ÷
-Multi-Modal Learning,¶àÄ£Ì¬Ñ§Ï°
-NLP,×ÔÈ»ÓïÑÔ´¦Àí
-Neural Language Model,Éñ¾­ÓïÑÔÄ£ĞÍ
-Neural Probabilistic Language Model,Éñ¾­¸ÅÂÊÓïÑÔÄ£ĞÍ
-RNN,Ñ­»·Éñ¾­ÍøÂç
-Neural Tensor Network,Éñ¾­ÕÅÁ¿ÍøÂç
-Feature Learning,ÌØÕ÷Ñ§Ï°
-Feature Engineering,ÌØÕ÷¹¤³Ì
-One-hot Representation,¶ÀÈÈ±àÂë
-DBM,Éî¶ÈÖÃĞÅ»ú
-Zero-shot Learning,Áã´ÎÑ§Ï°
-Approximate Inference,½üËÆÍÆ¶Ï
-Bag-of-Words Model,´Ê´üÄ£ĞÍ
-Forward Propagation,Ç°Ïò´«²¥
-Huffman Binary Tree,»ô·òÂü¶ş²æÊ÷
-NNLM,Éñ¾­ÍøÂçÓïÑÔÄ£ĞÍ
-N-gram,NÔªÓï·¨
-Skip-gram Model,ÌøÔªÄ£ĞÍ
-CBOW,Á¬Ğø´Ê´üÄ£ĞÍ
-Knowledge Graph,ÖªÊ¶Í¼Æ×
-Relation Extraction,¹ØÏµ³éÈ¡
+Supervised Learning,ç›‘ç£å­¦ä¹ 
+Unsupervised Learning,æ— ç›‘ç£å­¦ä¹ 
+Semi-supervised Learning,åŠç›‘ç£å­¦ä¹ 
+Reinforcement Learning,å¼ºåŒ–å­¦ä¹ 
+Active Learning,ä¸»åŠ¨å­¦ä¹ 
+Online Learning,åœ¨çº¿å­¦ä¹ 
+Transfer Learning,è¿ç§»å­¦ä¹ 
+Automated Machine Learning (AutoML),è‡ªåŠ¨æœºå™¨å­¦ä¹ 
+Representation Learning,è¡¨ç¤ºå­¦ä¹ 
+Minkowski distance,é—µå¯å¤«æ–¯åŸºè·ç¦»
+Gradient Descent,æ¢¯åº¦ä¸‹é™
+Stochastic Gradient Descent,éšæœºæ¢¯åº¦ä¸‹é™
+Over-fitting,è¿‡æ‹Ÿåˆ
+Regularization,æ­£åˆ™åŒ–
+Cross Validation,äº¤å‰éªŒè¯
+Perceptron,æ„ŸçŸ¥æœº
+Logistic Regression,é€»è¾‘å›å½’
+Maximum Likelihood Estimation,æœ€å¤§ä¼¼ç„¶ä¼°è®¡
+Newton's method,ç‰›é¡¿æ³•
+K-Nearest Neighbor,Kè¿‘é‚»æ³•
+Mahalanobis Distance,é©¬æ°è·ç¦»
+Decision Tree,å†³ç­–æ ‘
+Naive Bayes Classifier,æœ´ç´ è´å¶æ–¯åˆ†ç±»å™¨
+Generalization Error,æ³›åŒ–è¯¯å·®
+PAC Learning,æ¦‚ç‡è¿‘ä¼¼æ­£ç¡®å­¦ä¹ 
+Empirical Risk Minimization,ç»éªŒé£é™©æœ€å°åŒ–
+Growth Function,æˆé•¿å‡½æ•°
+VC-dimension,VCç»´
+Structural Risk Minimization,ç»“æ„é£é™©æœ€å°åŒ–
+Eigendecomposition,ç‰¹å¾åˆ†è§£
+Singular Value Decomposition,å¥‡å¼‚å€¼åˆ†è§£
+Moore-Penrose Pseudoinverse,æ‘©å°”-å½­è‹¥æ–¯å¹¿ä¹‰é€†
+Marginal Probability,è¾¹ç¼˜æ¦‚ç‡
+Conditional Probability,æ¡ä»¶æ¦‚ç‡
+Expectation,æœŸæœ›
+Variance,æ–¹å·®
+Covariance,åæ–¹å·®
+Critical points,ä¸´ç•Œç‚¹
+Support Vector Machine,æ”¯æŒå‘é‡æœº
+Decision Boundary,å†³ç­–è¾¹ç•Œ
+Convex Set,å‡¸é›†
+Lagrange Duality,æ‹‰æ ¼æœ—æ—¥å¯¹å¶æ€§
+KKT Conditions,KKTæ¡ä»¶
+Coordinate ascent,åæ ‡ä¸‹é™æ³•
+Sequential Minimal Optimization (SMO),åºåˆ—æœ€å°ä¼˜åŒ–
+Node Embedding,èŠ‚ç‚¹åµŒå…¥
+Graph Neural Network,å›¾ç¥ç»ç½‘ç»œ
+Node Classification,èŠ‚ç‚¹åˆ†ç±»
+Link Prediction,é“¾è·¯é¢„æµ‹
+Community Detection,ç¤¾åŒºå‘ç°
+Isomorphism,åŒæ„
+Random Walk,éšæœºæ¸¸èµ°
+Spectral Clustering,è°±èšç±»
+Asynchronous Stochastic Gradient Algorithm,å¼‚æ­¥éšæœºæ¢¯åº¦ç®—æ³•
+Negative Sampling,è´Ÿé‡‡æ ·
+Network Embedding,ç½‘ç»œåµŒå…¥
+Graph Theory,å›¾è®º
+multiset,å¤šé‡é›†
+Perron-Frobenius Theorem,ä½©é¾™-å¼—æœ—è´ç½—å°¼ä¹Œæ–¯å®šç†
+Stationary Distribution,ç¨³æ€åˆ†å¸ƒ
+Matrix Factorization,çŸ©é˜µåˆ†è§£
+Sparsification,ç¨€ç–åŒ–
+Frobenius Norm,F-èŒƒæ•°
+Heterogeneous Network,å¼‚æ„ç½‘ç»œ
+Graph Convolutional Network (GCN),å›¾å·ç§¯ç½‘ç»œ
+CNN,å·ç§¯ç¥ç»ç½‘ç»œ
+Semi-Supervised Classification,åŠç›‘ç£åˆ†ç±»
+Chebyshev polynomial,åˆ‡æ¯”é›ªå¤«å¤šé¡¹å¼
+Gradient Exploding,æ¢¯åº¦çˆ†ç‚¸
+Gradient Vanishing,æ¢¯åº¦æ¶ˆå¤±
+Batch Normalization,æ‰¹æ ‡å‡†åŒ–
+Neighborhood Aggregation,é‚»åŸŸèšåˆ
+LSTM,é•¿çŸ­æœŸè®°å¿†ç½‘ç»œ
+Graph Attention Network,å›¾æ³¨æ„åŠ›ç½‘ç»œ
+Self-attention,è‡ªæ³¨æ„åŠ›æœºåˆ¶
+Rescaling,å†ç¼©æ”¾
+Attention Mechanism,æ³¨æ„åŠ›æœºåˆ¶
+Jensen-Shannon Divergence,JSæ•£åº¦
+Cognitive Graph,è®¤çŸ¥å›¾è°±
+Generative Adversarial Network(GAN),ç”Ÿæˆå¯¹æŠ—ç½‘ç»œ
+Generative Model,ç”Ÿæˆæ¨¡å‹
+Discriminative Model,åˆ¤åˆ«æ¨¡å‹
+Gaussian Mixture Model,é«˜æ–¯æ··åˆæ¨¡å‹
+Variational Auto Encoder (VAE),å˜åˆ†ç¼–ç å™¨
+Markov Chain,é©¬å°”å¯å¤«é“¾
+Boltzmann Machine,ç»å°”å…¹æ›¼æœº
+Kullback-Leibler divergence,KLæ•£åº¦
+Surrogate Loss,æ›¿ä»£æŸå¤±
+Mode Collapse,æ¨¡å¼å´©æºƒ
+Earth-Mover/Wasserstein-1 Distance,æŠ›åœŸè·ç¦»/EMD
+Lipschitz Continuity,åˆ©æ™®å¸ŒèŒ¨è¿ç»­
+Feedforward Network,å‰é¦ˆç½‘ç»œ
+Minimax Game,æå°çº§å¤§åšå¼ˆ
+Adversarial Learning,å¯¹æŠ—å­¦ä¹ 
+Outlier,å¼‚å¸¸å€¼/é«˜ç»´å€¼
+Rectified Linear Unit,çº¿æ€§ä¿®æ­£å•å…ƒ
+Softmax Regression,Softmaxå›å½’
+Viterbi algorithm,ç»´ç‰¹æ¯”ç®—æ³•
+Gibbs distribution,å‰å¸ƒæ–¯åˆ†å¸ƒ
+Maximum Entropy Markov Model,æœ€å¤§ç†µé©¬å°”å¯å¤«æ¨¡å‹
+Information Extraction,ä¿¡æ¯æå–
+clique,å›¢
+conditional random field,æ¡ä»¶éšæœºåœº
+triad,ä¸‰å…ƒå…³ç³»
+Naive Bayes,æœ´ç´ è´å¶æ–¯
+social network,ç¤¾äº¤ç½‘ç»œ
+Bayesian network,è´å¶æ–¯ç½‘ç»œ
+Joint probability distribution,è”åˆæ¦‚ç‡åˆ†å¸ƒ
+Conditional independence,æ¡ä»¶ç‹¬ç«‹æ€§
+sequence analysis,åºåˆ—åˆ†æ
+Markov Blanket,é©¬å°”å¯å¤«æ¯¯
+Hidden Markov Model,éšé©¬å°”å¯å¤«æ¨¡å‹
+finite-state,æœ‰é™çŠ¶æ€
+Shallow parsing,æµ…å±‚åˆ†æ
+Speech recognition,è¯­éŸ³è¯†åˆ«
+convex,å‡¸
+transition matrix,è½¬ç§»çŸ©é˜µ
+factor graph,å› å­å›¾
+forward-backward algorithm,å‰å‘åå‘ç®—æ³•
+parsing,è¯­æ³•åˆ†æ
+structural holes,ç»“æ„æ´
+graphical model,å›¾æ¨¡å‹
+Markov Random Field,é©¬å°”å¯å¤«éšæœºåœº
+Social balance theory,ç¤¾ä¼šå¹³è¡¡ç†è®º
+probalistic topic model,æ¦‚ç‡è¯­ä¹‰æ¨¡å‹
+TFIDF,è¯é¢‘-é€†æ–‡æ¡£é¢‘ç‡
+LSI,æ½œåœ¨è¯­ä¹‰ç´¢å¼•
+restricted boltzmann machine,é™åˆ¶ç»å°”å…¹æ›¼æœº
+LDA,éšå¼ç‹„åˆ©å…‹é›·åˆ†é…æ¨¡å‹
+PLSI,æ¦‚ç‡æ½œåœ¨è¯­ä¹‰åˆ†ææ¨¡å‹
+EM algorithm,æœ€å¤§æœŸæœ›ç®—æ³•
+Gibbs sampling,å‰å¸ƒæ–¯é‡‡æ ·æ³•
+MAP (Maximum A Posteriori),æœ€å¤§åéªŒæ¦‚ç‡æ³•
+Markov Chain Monte Carlo,é©¬å°”å¯å¤«é“¾è’™ç‰¹å¡æ´›
+Monte Carlo Sampling,è’™ç‰¹å¡æ´›é‡‡æ ·æ³•
+Univariate,å•å˜é‡
+Hoeffding Bound,éœå¤«ä¸ç•Œ
+Chernoff Bound,åˆ‡è¯ºå¤«ç•Œ
+Importance Sampling,åŠ æƒé‡‡æ ·æ³•
+invariant distribution,ä¸å˜åˆ†å¸ƒ
+Metropolis-Hastings algorithm,Metropolis-Hastingsç®—æ³•
+Probabilistic Inference,æ¦‚ç‡æ¨æ–­
+Variational Inference,å˜åˆ†æ¨æ–­
+HMM,éšé©¬å°”å¯å¤«æ¨¡å‹
+mean field,å¹³å‡åœº
+mixture model,æ··åˆæ¨¡å‹
+Ensemble Learning (Bagging),é›†æˆå­¦ä¹ 
+Bootstrap Aggregating (Bagging),è£…è¢‹ç®—æ³•
+Random Forests,éšæœºæ£®æ—
+Boosting,æå‡æ–¹æ³•
+Stacking,å †å æ–¹æ³•
+Classification Tree,åˆ†ç±»æ ‘
+Adaptive Boosting (AdaBoost),è‡ªé€‚åº”æå‡
+Decision Stump,å†³ç­–æ ‘æ¡©
+Meta Learning,å…ƒå­¦ä¹ 
+Deep Feedforward Network (DPN),æ·±åº¦å‰å‘ç½‘ç»œ
+Backpropagation,åå‘ä¼ æ’­
+Activation Function,æ¿€æ´»å‡½æ•°
+Multi-layer Perceptron (MLP),å¤šå±‚æ„ŸçŸ¥æœº
+Mean-Squared Error (MSE),å‡æ–¹è¯¯å·®
+Chain Rule,é“¾å¼æ³•åˆ™
+Logistic Function,é€»è¾‘å‡½æ•°
+Hyperbolic Tangent,åŒæ›²æ­£åˆ‡å‡½æ•°
+Rectified Linear Units (ReLu),æ•´æµçº¿æ€§å•å…ƒ
+Residual Neural Networks (ResNet),æ®‹å·®ç¥ç»ç½‘ç»œ
+Overfitting,è¿‡æ‹Ÿåˆ
+Data(set) Augmentation,æ•°æ®å¢å¼º
+Parameter Sharing,å‚æ•°å…±äº«
+Dropout,éšæœºä¸¢å¼ƒ
+L2 Regularization,L2æ­£åˆ™åŒ–
+Taylor Series Approximation,æ³°å‹’çº§æ•°è¿‘ä¼¼
+Taylor Expansion,æ³°å‹’å±•å¼€
+Bayesian Prior,è´å¶æ–¯å…ˆéªŒ
+Bayesian Inference,è´å¶æ–¯æ¨ç†
+Gaussian Prior,é«˜æ–¯å…ˆéªŒ
+Maximum-a-Posterior (MAP),æœ€å¤§åéªŒ
+Linear Regression,çº¿æ€§å›å½’
+L1 Regularization,L1æ­£åˆ™åŒ–
+Constrained Optimization,çº¦æŸä¼˜åŒ–
+Lagrange Function,æ‹‰æ ¼æœ—æ—¥å‡½æ•°
+Denoising Autoencoder,é™å™ªè‡ªåŠ¨ç¼–ç å™¨
+Label Smoothing,æ ‡ç­¾å¹³æ»‘
+Eigen Decomposition,ç‰¹å¾åˆ†è§£
+Convolutional Neural Networks (CNNs),å·ç§¯ç¥ç»ç½‘ç»œ
+Multi-Task Learning,å¤šä»»åŠ¡å­¦ä¹ 
+Multivariate Normal Distribution,å¤šå…ƒæ­£æ€åˆ†å¸ƒ
+Sparse Parametization,ç¨€ç–å‚æ•°åŒ–
+Sparse Representation,ç¨€ç–è¡¨ç¤º
+Orthogonal Matching Pursuit (OMP),æ­£äº¤åŒ¹é…è¿½è¸ªç®—æ³•
+Root-Mean-Square Error (RMSE),å‡æ–¹æ ¹è¯¯å·®
+Collaborative Filtering (CF),ååŒè¿‡æ»¤
+Nonnegative Matrix Factorization (NMF),éè´ŸçŸ©é˜µåˆ†è§£
+Latent Sematic Analysis (LSA),æ½œåœ¨è¯­ä¹‰åˆ†æ
+Bayesian Probabilistic Matrix Factorization (BPMF),è´å¶æ–¯æ¦‚ç‡çŸ©é˜µåˆ†è§£
+Wishart Prior,Wishartå…ˆéªŒ
+Sparse Coding,ç¨€ç–ç¼–ç 
+Factorization Machines (FM),åˆ†è§£æœº
+second-order method,äºŒé˜¶æ–¹æ³•
+cost function,ä»£ä»·å‡½æ•°
+training set,è®­ç»ƒé›†
+objective function,ç›®æ ‡å‡½æ•°
+data generating distribution,æ•°æ®ç”Ÿæˆåˆ†å¸ƒ
+empirical risk,ç»éªŒé£é™©
+feasible,å¯è¡Œ
+loss function,æŸå¤±å‡½æ•°
+derivative,å¯¼æ•°
+surrogate loss function,ä»£ç†æŸå¤±å‡½æ•°
+early stopping,æå‰ç»ˆæ­¢
+Hessian matrix,é»‘å¡çŸ©é˜µ
+second derivative,äºŒé˜¶å¯¼æ•°
+Taylor series,æ³°å‹’çº§æ•°
+Ill-conditioning,ç—…æ€çš„
+critical point,ä¸´ç•Œç‚¹
+local minimum,å±€éƒ¨æå°ç‚¹
+local maximum,å±€éƒ¨æå¤§ç‚¹
+saddle point,éç‚¹
+global minimum,å…¨å±€æœ€å°ç‚¹
+convex function,å‡¸å‡½æ•°
+weight space symmetry,æƒé‡ç©ºé—´å¯¹ç§°æ€§
+fully-connected networks,å…¨è¿æ¥ç½‘ç»œ
+gradient clipping,æ¢¯åº¦æˆªæ–­
+recurrent neural network,å¾ªç¯ç¥ç»ç½‘ç»œ
+long-term dependency,é•¿æœŸä¾èµ–
+eigen-decomposition,ç‰¹å¾å€¼åˆ†è§£
+vanishing and exploding gradient problem,æ¢¯åº¦æ¶ˆå¤±ä¸çˆ†ç‚¸é—®é¢˜
+contrastive divergence,å¯¹æ¯”æ•£åº¦
+validation set,éªŒè¯é›†
+learning rate,å­¦ä¹ é€Ÿç‡
+momentum,åŠ¨é‡
+poor conditioning,ç—…æ€æ¡ä»¶
+nesterov momentum,NesterovåŠ¨é‡
+partial derivative,åå¯¼æ•°
+moving average,ç§»åŠ¨å¹³å‡
+quadratic function,äºŒæ¬¡å‡½æ•°
+positive definite,æ­£å®š
+quasi-newton method,æ‹Ÿç‰›é¡¿æ³•
+conjugate gradient,å…±è½­æ¢¯åº¦
+steepest descent,æœ€é€Ÿä¸‹é™
+reparametization,é‡å‚æ•°åŒ–
+standard deviation,æ ‡å‡†å·®
+coordinate descent,åæ ‡ä¸‹é™
+skip connection,è·³è·ƒè¿æ¥
+pooling,æ± åŒ–
+hyperparameter,è¶…å‚æ•°
+sparse connectivity,ç¨€ç–è¿æ¥
+receptive field,æ„Ÿå—é‡
+sliced convolution,åˆ‡ç‰‡å·ç§¯
+Object Detection,ç›®æ ‡æ£€æµ‹
+error rate,é”™è¯¯ç‡
+autoencoder,è‡ªç¼–ç å™¨
+pretraining,é¢„è®­ç»ƒ
+dimensionality reduction,é™ç»´
+feedforward neural network,å‰é¦ˆç¥ç»ç½‘ç»œ
+encoder,ç¼–ç å™¨
+decoder,è§£ç å™¨
+cross-entropy,äº¤å‰ç†µ
+sliced weights,åˆ‡ç‰‡æƒé‡
+PCA,ä¸»æˆåˆ†åˆ†æ
+principal component analysis,ä¸»æˆåˆ†åˆ†æ
+singular value,å¥‡å¼‚å€¼
+reconstruction error,é‡æ„è¯¯å·®
+covariance matrix,åæ–¹å·®çŸ©é˜µ
+denoising autoencoder,å»å™ªè‡ªç¼–ç å™¨
+sparse autoencoder,ç¨€ç–è‡ªç¼–ç å™¨
+contraction autoencoder,æ”¶ç¼©è‡ªç¼–ç å™¨
+fine-tune,å¾®è°ƒ
+local optima,å±€éƒ¨æœ€ä¼˜
+posterior distribution,åéªŒåˆ†å¸ƒ
+gaussian distribution,é«˜æ–¯åˆ†å¸ƒ
+artificial neural network,äººå·¥ç¥ç»ç½‘ç»œ
+sentiment analysis,æƒ…æ„Ÿåˆ†æ
+machine translation,æœºå™¨ç¿»è¯‘
+pos tagging,è¯æ€§æ ‡æ³¨
+teacher forcing,æ•™å¸ˆå¼ºåˆ¶
+back-propagation through time,é€šè¿‡æ—¶é—´åå‘ä¼ æ’­
+directed graphical model,æœ‰å‘å›¾æ¨¡å‹
+question answering,é—®ç­”ç³»ç»Ÿ
+jacobi matrix,é›…å¯æ¯”çŸ©é˜µ
+clip gradient,æ¢¯åº¦è£å‰ª
+long short-term memory,é•¿çŸ­æœŸè®°å¿†
+gated recurrent unit,é—¨æ§å¾ªç¯å•å…ƒ
+hadamard product,Hadamardä¹˜ç§¯
+named entity recognition,å‘½åå®ä½“è¯†åˆ«
+Distributed Representation,åˆ†å¸ƒå¼è¡¨å¾
+Multi-Modal Learning,å¤šæ¨¡æ€å­¦ä¹ 
+NLP,è‡ªç„¶è¯­è¨€å¤„ç†
+Neural Language Model,ç¥ç»è¯­è¨€æ¨¡å‹
+Neural Probabilistic Language Model,ç¥ç»æ¦‚ç‡è¯­è¨€æ¨¡å‹
+RNN,å¾ªç¯ç¥ç»ç½‘ç»œ
+Neural Tensor Network,ç¥ç»å¼ é‡ç½‘ç»œ
+Feature Learning,ç‰¹å¾å­¦ä¹ 
+Feature Engineering,ç‰¹å¾å·¥ç¨‹
+One-hot Representation,ç‹¬çƒ­ç¼–ç 
+DBM,æ·±åº¦ç½®ä¿¡æœº
+Zero-shot Learning,é›¶æ¬¡å­¦ä¹ 
+Approximate Inference,è¿‘ä¼¼æ¨æ–­
+Bag-of-Words Model,è¯è¢‹æ¨¡å‹
+Forward Propagation,å‰å‘ä¼ æ’­
+Huffman Binary Tree,éœå¤«æ›¼äºŒå‰æ ‘
+NNLM,ç¥ç»ç½‘ç»œè¯­è¨€æ¨¡å‹
+N-gram,Nå…ƒè¯­æ³•
+Skip-gram Model,è·³å…ƒæ¨¡å‹
+CBOW,è¿ç»­è¯è¢‹æ¨¡å‹
+Knowledge Graph,çŸ¥è¯†å›¾è°±
+Relation Extraction,å…³ç³»æŠ½å–
