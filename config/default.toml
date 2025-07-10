@@ -10,6 +10,6 @@ category = {}
 update_term = "False"
 
 [llm_config]
-model = "deepseek-chat"
-api_key = "sk-dbce8c36715e412a99fde80c9614661e"
-base_url = "https://api.deepseek.com/chat/completions"
+model = "deepseek-v3"
+api_key = ""
+base_url = ""
