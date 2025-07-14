@@ -897,6 +897,20 @@ def batch_download_arxiv_tex(arxiv_ids: List[str], save_dir: str = "./tex_source
         else:
             print(f"[SKIP] No TeX source found for {arxiv_id}. Please check the arXiv ID or the availability of the source.")
 
+            # 下载PDF文件
+        pdf_url = f"https://arxiv.org/pdf/{arxiv_id}.pdf"
+        pdf_path = os.path.join(save_dir, arxiv_id, f"{arxiv_id}.pdf")
+        os.makedirs(os.path.dirname(pdf_path), exist_ok=True)
+
+        try:
+            response = requests.get(pdf_url, headers=headers)
+            response.raise_for_status()
+            with open(pdf_path, 'wb') as f:
+                f.write(response.content)
+            print(f"[SUCCESS] Downloaded PDF for {arxiv_id}")
+        except Exception as e:
+            print(f"[ERROR] Failed to download PDF for {arxiv_id}: {str(e)}")
+
     return source_dirs
 
 
@@ -933,6 +947,32 @@ def get_arxiv_category(arxiv_ids: List[str]) -> dict:
         time.sleep(1)  # 防止请求过快
 
     return results
+
+def is_valid_arxiv_id(id_str):
+    """检查字符串是否是合法的arXiv ID"""
+    # 现代格式：YYYY.NNNNN 或 YYYY.NNNNNNN
+    if re.match(r'^\d{4}\.\d{5,7}$', id_str):
+        return True
+    # 旧格式：学科分类/YYMMNNN（如 hep-th/9901001）
+    if re.match(r'^[\w\-]+/\d{7}$', id_str):
+        return True
+    return False
+
+def extract_arxiv_ids(arxiv_list):
+    # 正则表达式匹配arxiv ID
+    ids = []
+    for item in arxiv_list:
+        # 如果是纯ID，直接加入
+        if is_valid_arxiv_id(item):
+            ids.append(item)
+            continue
+
+        # 否则尝试从URL中提取
+        url_pattern = r'(?:arxiv\.org/)(?:abs|pdf|e-print)/([\w\-]+/\d{7}|\d{4}\.\d{5,7})(?:\.pdf)?'
+        match = re.search(url_pattern, item)
+        if match:
+            ids.append(match.group(1))
+    return ids
 
 # get_texts_from_data(
 #     folder_path="D:\code\AutoLaTexTrans\data\cs",

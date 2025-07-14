@@ -1143,7 +1143,7 @@ class TranslatorAgent(BaseToolAgent):
             if self.category.get(arxiv_id):
                 term_dict_loaded = False
                 for category in self.category[arxiv_id]:
-                    file_path = os.path.join('TransLatex/terms', f'{category}.csv')
+                    file_path = os.path.join('terms', f'{category}.csv')
                     try:
                         df = pd.read_csv(file_path, header=None, names=['English Term', 'Chinese Translation'])
                         self.term_dict = dict(zip(df['English Term'], df['Chinese Translation']))

@@ -34,6 +34,7 @@ class CoordinatorAgent:
         self.config = config
         self.name = config.get("sys_name", "LaTeXTrans")
         self.target_language = config.get("target_language", "ch")
+        self.source_language = config.get("source_language", "en")
         self.project_dir = project_dir  # Project path for parsing
         self.output_dir = output_dir  # Output directory for parsed files
         self.loop = asyncio.new_event_loop()  # 添加事件循环
@@ -86,6 +87,8 @@ class CoordinatorAgent:
         # except Exception as e:
         #     print(f"🤖🚧 {self.name}: Failed to translated {os.path.basename(self.project_dir)}.{e}")
         #     return
+        #
+        #
         #
         # if PDF_file_path:
         #     new_PDF_path = os.path.join(transed_project_dir, f"{self.target_language}_{base_name}.pdf")

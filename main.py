@@ -3,7 +3,7 @@ import argparse
 import os
 import sys
 from src.agents.coordinator_agent import CoordinatorAgent
-from src.formats.latex.utils import get_profect_dirs, batch_download_arxiv_tex, extract_compressed_files, get_arxiv_category
+from src.formats.latex.utils import get_profect_dirs, batch_download_arxiv_tex, extract_compressed_files, get_arxiv_category, extract_arxiv_ids
 from src.formats.latex.prompts import *
 import subprocess
 import streamlit
@@ -26,7 +26,7 @@ def main():
     parser.add_argument("--key", type=str, default="", help="Model key.")
     parser.add_argument("--Arxiv", type=str, default="", help="Arxiv paper ID.")
     parser.add_argument("--GUI", "-g", action="store_true", help="Interact with GUI.")
-    parser.add_argument("--mode", type=int, default=0, help="Translate mode.")
+    parser.add_argument("--mode", type=int, default=2, help="Translate mode.")
     parser.add_argument("--update_term", type=str, default="False", help="Update term or not.")
     parser.add_argument("--tl", type=str, default="ch", help="Target language.")
     parser.add_argument("--sl", type=str, default="en", help="Source language.")
@@ -81,6 +81,7 @@ def main():
     #     config["paper_list"] = args.paper_ids
 
     paper_list = config.get("paper_list", [])
+    paper_list = extract_arxiv_ids(paper_list)
     projects_dir = os.path.join(base_dir, config.get("tex_sources_dir", "tex-source"))
     output_dir = os.path.join(base_dir, config.get("output_dir", "outputs"))
 
