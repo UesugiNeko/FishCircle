@@ -1,0 +1,42 @@
+[
+    {
+        "placeholder": "<PLACEHOLDER_NEWCOMMAND_0>",
+        "name": "footnoteONLYtext",
+        "content": "\\newcommand\\footnoteONLYtext[1]{\n    \\let \\mybackup \\thefootnote\n    \\let \\thefootnote \\relax\n    \\footnotetext{#1}\n    \\let \\thefootnote \\mybackup\n    \\let \\mybackup \\imareallyundefinedcommand}"
+    },
+    {
+        "placeholder": "<PLACEHOLDER_NEWCOMMAND_1>",
+        "name": "ie",
+        "content": "\\newcommand{\\ie}{\\textit{i.e., }}"
+    },
+    {
+        "placeholder": "<PLACEHOLDER_NEWCOMMAND_2>",
+        "name": "eg",
+        "content": "\\newcommand{\\eg}{\\textit{e.g., }}"
+    },
+    {
+        "placeholder": "<PLACEHOLDER_NEWCOMMAND_3>",
+        "name": "etal",
+        "content": "\\newcommand{\\etal}{\\textit{et al. }}"
+    },
+    {
+        "placeholder": "<PLACEHOLDER_NEWCOMMAND_4>",
+        "name": "etc",
+        "content": "\\newcommand{\\etc}{\\textit{etc. }}"
+    },
+    {
+        "placeholder": "<PLACEHOLDER_NEWCOMMAND_5>",
+        "name": "wrt",
+        "content": "\\newcommand{\\wrt}{\\textit{w.r.t. }}"
+    },
+    {
+        "placeholder": "<PLACEHOLDER_NEWCOMMAND_6>",
+        "name": "cf",
+        "content": "\\newcommand{\\cf}{\\textit{cf. }}"
+    },
+    {
+        "placeholder": "<PLACEHOLDER_NEWCOMMAND_7>",
+        "name": "aka",
+        "content": "\\newcommand{\\aka}{\\textit{a.k.a. }}"
+    }
+]

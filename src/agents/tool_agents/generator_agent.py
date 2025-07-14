@@ -24,8 +24,8 @@ class GeneratorAgent(BaseToolAgent):
         
         self.log(f"🤖💬 Start generating for project...⏳: {os.path.basename(self.project_dir)}.")
 
-        from src.formats.latex.compile import LaTexCompiler
-        from src.formats.latex.reconstruct import LatexConstructor
+        from TransLatex.src.formats.latex.compile import LaTexCompiler
+        from TransLatex.src.formats.latex.reconstruct import LatexConstructor
 
         sections = self.read_file(Path(self.output_dir, "sections_map.json"), "json")
         captions = self.read_file(Path(self.output_dir, "captions_map.json"), "json")
@@ -46,6 +46,8 @@ class GeneratorAgent(BaseToolAgent):
 
         latex_compiler = LaTexCompiler(output_latex_dir=transed_latex_dir)
         pdf_file = latex_compiler.compile()
+        source_compiler = LaTexCompiler(output_latex_dir=self.config["tex_sources_dir"])
+        source_compiler.compile_source(self.config["output_dir"])
         if pdf_file:
             self.log(f"✅ Successfully generated for {os.path.basename(self.project_dir)}.")
             return pdf_file

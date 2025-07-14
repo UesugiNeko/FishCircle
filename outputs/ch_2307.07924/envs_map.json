@@ -1,0 +1,128 @@
+[
+    {
+        "placeholder": "<PLACEHOLDER_ENV_1>",
+        "env_name": "abstract",
+        "content": "\\begin{abstract}\nSoftware development is a complex task that necessitates cooperation among multiple members with diverse skills.\nNumerous studies used deep learning to improve specific phases in a waterfall model, such as design, coding, and testing.\nHowever, the deep learning model in each phase requires unique designs, leading to technical inconsistencies across various phases, which results in a fragmented and ineffective development process.\nIn this paper, we introduce ChatDev, a chat-powered software development framework in which specialized agents driven by large language models (LLMs) are guided in what to communicate (via \\textit{chat chain}) and how to communicate (via \\textit{communicative dehallucination}). These agents actively contribute to the design, coding, and testing phases through unified language-based communication, with solutions derived from their multi-turn dialogues.\nWe found their utilization of natural language is advantageous for system design, and communicating in programming language proves helpful in debugging.\nThis paradigm demonstrates how linguistic communication facilitates multi-agent collaboration, establishing language as a unifying bridge for autonomous task-solving among LLM agents.\nThe code and data are available at \\url{https://github.com/OpenBMB/ChatDev}.\n\\end{abstract}",
+        "trans_content": "\\begin{abstract}\n软件开发是一项复杂的任务，需要具备多样化技能的多个成员协同合作。已有大量研究利用深度学习技术来改进瀑布模型中的特定阶段，例如设计、编码与测试。然而，每个阶段采用的深度学习模型需要独特设计，导致不同阶段间存在技术不一致性，从而形成割裂且低效的开发流程。本文提出ChatDev——一个基于对话驱动的软件开发框架，其中由大语言模型（LLMs）驱动的专业化智能体通过\\textit{对话链}（指导沟通内容）和\\textit{去幻觉通信机制}（规范沟通方式）进行协作。这些智能体通过统一的语言化交互，在设计、编码和测试阶段进行多轮对话并生成解决方案。研究发现：自然语言的运用有利于系统设计，而编程语言的交流则有助于调试过程。该范式揭示了语言通信如何促进多智能体协作，确立了语言作为LLM智能体间自主任务求解的统一桥梁。相关代码与数据已开源：\\url{https://github.com/OpenBMB/ChatDev}。\n\\end{abstract}",
+        "need_trans": true
+    },
+    {
+        "placeholder": "<PLACEHOLDER_ENV_2>",
+        "env_name": "figure",
+        "content": "\\begin{figure}[t]\n  \\centering\n  \\includegraphics[width=0.50\\textwidth]{figs/ChatDev.pdf}\n  <PLACEHOLDER_CAP_2>\n  \\label{fig:chatdev}\n\\end{figure}",
+        "trans_content": "\\begin{figure}[t]\n  \\centering\n  \\includegraphics[width=0.50\\textwidth]{figs/ChatDev.pdf}\n  <PLACEHOLDER_CAP_2>\n  \\label{fig:chatdev}\n\\end{figure}",
+        "need_trans": false
+    },
+    {
+        "placeholder": "<PLACEHOLDER_ENV_3>",
+        "env_name": "figure*",
+        "content": "\\begin{figure*}[htbp]\n  \\centering\n  \\includegraphics[width=0.88\\textwidth]{figs/chat_chain.pdf}\n  <PLACEHOLDER_CAP_3>\n  \\label{fig:chatchain}\n\\end{figure*}",
+        "trans_content": "\\begin{figure*}[htbp]\n  \\centering\n  \\includegraphics[width=0.88\\textwidth]{figs/chat_chain.pdf}\n  <PLACEHOLDER_CAP_3>\n  \\label{fig:chatchain}\n\\end{figure*}",
+        "need_trans": false
+    },
+    {
+        "placeholder": "<PLACEHOLDER_ENV_4>",
+        "env_name": "equation",
+        "content": "\\begin{equation}\n\\begin{aligned}\n& \\mathcal{C} = \\langle \\mathcal{P}^{1}, \\mathcal{P}^{2} ,\\dots,\\mathcal{P}^{|\\mathcal{C}|} \\rangle \\\\\n& \\mathcal{P}^i = \\langle \\mathcal{T}^1, \\mathcal{T}^2,\\dots, \\mathcal{T}^{|\\mathcal{P}^i|} \\rangle \\\\\n& \\mathcal{T}^j = \\tau \\big( \\mathsf{C}(\\mathcal{I},\\mathcal{A}) \\big) \\\\\n& \\mathsf{C}(\\mathcal{I},\\mathcal{A}) = {\\langle \\mathcal{I}\\rightarrow\\mathcal{A}, \\ \\mathcal{A}\\leadsto\\mathcal{I} \\rangle}_{\\circlearrowleft} \\\\\n\\end{aligned}\n\\end{equation}",
+        "trans_content": "\\begin{equation}\n\\begin{aligned}\n& \\mathcal{C} = \\langle \\mathcal{P}^{1}, \\mathcal{P}^{2} ,\\dots,\\mathcal{P}^{|\\mathcal{C}|} \\rangle \\\\\n& \\mathcal{P}^i = \\langle \\mathcal{T}^1, \\mathcal{T}^2,\\dots, \\mathcal{T}^{|\\mathcal{P}^i|} \\rangle \\\\\n& \\mathcal{T}^j = \\tau \\big( \\mathsf{C}(\\mathcal{I},\\mathcal{A}) \\big) \\\\\n& \\mathsf{C}(\\mathcal{I},\\mathcal{A}) = {\\langle \\mathcal{I}\\rightarrow\\mathcal{A}, \\ \\mathcal{A}\\leadsto\\mathcal{I} \\rangle}_{\\circlearrowleft} \\\\\n\\end{aligned}\n\\end{equation}",
+        "need_trans": false
+    },
+    {
+        "placeholder": "<PLACEHOLDER_ENV_5>",
+        "env_name": "equation",
+        "content": "\\begin{equation}\n\\begin{aligned}\n\\mathcal{I} = \\rho(LLM, \\mathsf{P}_I), \\ \\ \\mathcal{A} = \\rho(LLM, \\mathsf{P}_A)\n\\end{aligned}\n\\end{equation}",
+        "trans_content": "\\begin{equation}\n\\begin{aligned}\n\\mathcal{I} = \\rho(LLM, \\mathsf{P}_I), \\ \\ \\mathcal{A} = \\rho(LLM, \\mathsf{P}_A)\n\\end{aligned}\n\\end{equation}",
+        "need_trans": false
+    },
+    {
+        "placeholder": "<PLACEHOLDER_ENV_6>",
+        "env_name": "equation",
+        "content": "\\begin{equation}\n\\mathcal{M}_t^i = \\langle (\\mathcal{I}_1^i,\\mathcal{A}_1^i), (\\mathcal{I}_2^i,\\mathcal{A}_2^i), \\ldots, (\\mathcal{I}_t^i,\\mathcal{A}_t^i) \\rangle\n\\end{equation}",
+        "trans_content": "\\begin{equation}\n\\mathcal{M}_t^i = \\langle (\\mathcal{I}_1^i,\\mathcal{A}_1^i), (\\mathcal{I}_2^i,\\mathcal{A}_2^i), \\ldots, (\\mathcal{I}_t^i,\\mathcal{A}_t^i) \\rangle\n\\end{equation}",
+        "need_trans": false
+    },
+    {
+        "placeholder": "<PLACEHOLDER_ENV_7>",
+        "env_name": "equation",
+        "content": "\\begin{equation}\n\\begin{aligned}\n\\mathcal{I}_{t+1}^i = &\\mathcal{I}(\\mathcal{M}_t^i), \\ \\ \\mathcal{A}_{t+1}^i = \\mathcal{A}(\\mathcal{M}_t^i, \\mathcal{I}_{t+1}^i) \\\\\n&\\mathcal{M}_{t+1}^i = \\mathcal{M}_t^i \\cup (\\mathcal{I}_{t+1}^i, \\mathcal{A}_{t+1}^i)\n\\end{aligned}\n\\end{equation}",
+        "trans_content": "\\begin{equation}\n\\begin{aligned}\n\\mathcal{I}_{t+1}^i = &\\mathcal{I}(\\mathcal{M}_t^i), \\ \\ \\mathcal{A}_{t+1}^i = \\mathcal{A}(\\mathcal{M}_t^i, \\mathcal{I}_{t+1}^i) \\\\\n&\\mathcal{M}_{t+1}^i = \\mathcal{M}_t^i \\cup (\\mathcal{I}_{t+1}^i, \\mathcal{A}_{t+1}^i)\n\\end{aligned}\n\\end{equation}",
+        "need_trans": false
+    },
+    {
+        "placeholder": "<PLACEHOLDER_ENV_8>",
+        "env_name": "equation",
+        "content": "\\begin{equation}\n\\mathcal{I}_1^{i+1} = \\tilde{\\mathcal{M}}^{i} \\cup \\mathsf{P}^{i+1}_{\\mathcal{I}}, \\ \\ \\tilde{\\mathcal{M}}^{i} = \\bigcup_{j=1}^{i} \\tau(\\mathcal{M}_{|\\mathcal{M}^j|}^{j})\n\\end{equation}",
+        "trans_content": "\\begin{equation}\n\\mathcal{I}_1^{i+1} = \\tilde{\\mathcal{M}}^{i} \\cup \\mathsf{P}^{i+1}_{\\mathcal{I}}, \\ \\ \\tilde{\\mathcal{M}}^{i} = \\bigcup_{j=1}^{i} \\tau(\\mathcal{M}_{|\\mathcal{M}^j|}^{j})\n\\end{equation}",
+        "need_trans": false
+    },
+    {
+        "placeholder": "<PLACEHOLDER_ENV_9>",
+        "env_name": "equation",
+        "content": "\\begin{equation}\n\\langle \\mathcal{I}\\rightarrow\\mathcal{A}, \\ \\mathcal{A}\\leadsto\\mathcal{I} \\rangle_{\\circlearrowleft}\n\\end{equation}",
+        "trans_content": "\\begin{equation}\n\\langle \\mathcal{I}\\rightarrow\\mathcal{A}, \\ \\mathcal{A}\\leadsto\\mathcal{I} \\rangle_{\\circlearrowleft}\n\\end{equation}",
+        "need_trans": false
+    },
+    {
+        "placeholder": "<PLACEHOLDER_ENV_10>",
+        "env_name": "equation",
+        "content": "\\begin{equation}\n\\langle \\mathcal{I}\\rightarrow\\mathcal{A},\\  \\langle\\mathcal{A}\\rightarrow\\mathcal{I},\\ \\mathcal{I}\\leadsto\\mathcal{A}\\rangle_\\circlearrowleft,\\  \\mathcal{A}\\leadsto\\mathcal{I} \\rangle_\\circlearrowleft\n\\end{equation}",
+        "trans_content": "\\begin{equation}\n\\langle \\mathcal{I}\\rightarrow\\mathcal{A},\\  \\langle\\mathcal{A}\\rightarrow\\mathcal{I},\\ \\mathcal{I}\\leadsto\\mathcal{A}\\rangle_\\circlearrowleft,\\  \\mathcal{A}\\leadsto\\mathcal{I} \\rangle_\\circlearrowleft\n\\end{equation}",
+        "need_trans": false
+    },
+    {
+        "placeholder": "<PLACEHOLDER_ENV_11>",
+        "env_name": "table*",
+        "content": "\\begin{table*}[h]\n\\centering\n\\begin{tabular}{lccccc}\n\\toprule[1.5pt]\n\\textbf{Method} & \\textbf{Paradigm} & \\textbf{Completeness} & \\textbf{Executability} & \\textbf{Consistency} & \\textbf{Quality} \\\\\n\\midrule[0.75pt]\nGPT-Engineer & \\includegraphics[height=10pt]{figs/p4.png} & \\underline{0.5022}$^\\dagger$ & 0.3583$^\\dagger$ & \\underline{0.7887}$^\\dagger$ & 0.1419$^\\dagger$ \\\\\nMetaGPT & \\includegraphics[height=10pt]{figs/p5.png} & 0.4834$^\\dagger$ & \\underline{0.4145}$^\\dagger$ & 0.7601$^\\dagger$ & \\underline{0.1523}$^\\dagger$ \\\\\nChatDev & \\includegraphics[height=10pt]{figs/p5.png} & \\textbf{0.5600} & \\textbf{0.8800} & \\textbf{0.8021} & \\textbf{0.3953} \\\\\n\\bottomrule[1.5pt]\n\\end{tabular}\n<PLACEHOLDER_CAP_4>\n\\label{tab:main-results}\n\\end{table*}",
+        "trans_content": "\\begin{table*}[h]\n\\centering\n\\begin{tabular}{lccccc}\n\\toprule[1.5pt]\n\\textbf{Method} & \\textbf{Paradigm} & \\textbf{Completeness} & \\textbf{Executability} & \\textbf{Consistency} & \\textbf{Quality} \\\\\n\\midrule[0.75pt]\nGPT-Engineer & \\includegraphics[height=10pt]{figs/p4.png} & \\underline{0.5022}$^\\dagger$ & 0.3583$^\\dagger$ & \\underline{0.7887}$^\\dagger$ & 0.1419$^\\dagger$ \\\\\nMetaGPT & \\includegraphics[height=10pt]{figs/p5.png} & 0.4834$^\\dagger$ & \\underline{0.4145}$^\\dagger$ & 0.7601$^\\dagger$ & \\underline{0.1523}$^\\dagger$ \\\\\nChatDev & \\includegraphics[height=10pt]{figs/p5.png} & \\textbf{0.5600} & \\textbf{0.8800} & \\textbf{0.8021} & \\textbf{0.3953} \\\\\n\\bottomrule[1.5pt]\n\\end{tabular}\n<PLACEHOLDER_CAP_4>\n\\label{tab:main-results}\n\\end{table*}",
+        "need_trans": false
+    },
+    {
+        "placeholder": "<PLACEHOLDER_ENV_12>",
+        "env_name": "table",
+        "content": "\\begin{table}[t]\n\\centering\n\\resizebox{0.48\\textwidth}{!}{\n\\begin{tabular}{lcccc}\n\\toprule[1.5pt]\n\\textbf{Method} & \\textbf{Evaluator} & \\textbf{Baseline Wins} & \\textbf{ChatDev Wins} & \\textbf{Draw} \\\\\n\\midrule[0.75pt]\n\\multirow{2}{*}{GPT-Engineer} & GPT-4 & 22.50\\% & 77.08\\% & 00.42\\% \\\\\n & Human & 09.18\\% & 90.16\\% & 00.66\\% \\\\\n\\midrule[0.25pt]\n\\multirow{2}{*}{MetaGPT}& GPT-4 & 37.50\\% & 57.08\\% & 05.42\\% \\\\\n & Human & 07.92\\% & 88.00\\% & 04.08\\% \\\\\n\\bottomrule[1.5pt]\n\\end{tabular}\n}\n<PLACEHOLDER_CAP_5>\n\\label{tab:human_eval}\n\\end{table}",
+        "trans_content": "\\begin{table}[t]\n\\centering\n\\resizebox{0.48\\textwidth}{!}{\n\\begin{tabular}{lcccc}\n\\toprule[1.5pt]\n\\textbf{Method} & \\textbf{Evaluator} & \\textbf{Baseline Wins} & \\textbf{ChatDev Wins} & \\textbf{Draw} \\\\\n\\midrule[0.75pt]\n\\multirow{2}{*}{GPT-Engineer} & GPT-4 & 22.50\\% & 77.08\\% & 00.42\\% \\\\\n & Human & 09.18\\% & 90.16\\% & 00.66\\% \\\\\n\\midrule[0.25pt]\n\\multirow{2}{*}{MetaGPT}& GPT-4 & 37.50\\% & 57.08\\% & 05.42\\% \\\\\n & Human & 07.92\\% & 88.00\\% & 04.08\\% \\\\\n\\bottomrule[1.5pt]\n\\end{tabular}\n}\n<PLACEHOLDER_CAP_5>\n\\label{tab:human_eval}\n\\end{table}",
+        "need_trans": false
+    },
+    {
+        "placeholder": "<PLACEHOLDER_ENV_13>",
+        "env_name": "enumerate",
+        "content": "\\begin{enumerate}[$\\bullet$]\n\\setlength{\\topsep}{-4pt}\n\\setlength{\\itemsep}{-4pt}\n\\item \\textit{Completeness} measures the software's ability to fulfill code completion in software development, quantified as the percentage of software without any \"placeholder\" code snippets. A higher score indicates a higher probability of automated completion.\n\\item \\textit{Executability} assesses the software's ability to run correctly within a compilation environment, quantified as the percentage of software that compiles successfully and can run directly. A higher score indicates a higher probability of successful execution.\n\\item \\textit{Consistency} measures how closely the generated software code aligns with the original requirement description, quantified as the cosine distance between the semantic embeddings of the textual requirements and the generated software code\\footnote{Comments should be excluded from the code to avoid potential information leakage during evaluations.}. A higher score indicates a greater degree of consistency with the requirements.\n\\item \\textit{Quality} is a comprehensive metric that integrates various factors to assess the overall quality of software, quantified by multiplying\\footnote{One can also choose to average the sub-metrics, which yields similar trends.} completeness, executability, and consistency. A higher quality score suggests a higher overall satisfaction with the software generated, implying a lower need for further manual intervention.\n\\end{enumerate}",
+        "trans_content": "\\begin{enumerate}[$\\bullet$]\n\\setlength{\\topsep}{-4pt}\n\\setlength{\\itemsep}{-4pt}\n\\item \\textit{完整性}衡量软件开发中代码补全的能力，量化为不含任何\"占位符\"代码片段的软件百分比。分数越高，表示自动化完成概率越高。\n\\item \\textit{可执行性}评估软件在编译环境中正确运行的能力，量化为成功编译并可直接运行的软件百分比。分数越高，表示成功执行概率越高。\n\\item \\textit{一致性}衡量生成软件代码与原始需求描述的契合程度，量化为文本需求的语义嵌入与生成软件代码的余弦距离\\footnote{评估时应排除代码注释，以避免潜在信息泄露}。分数越高，表示与需求的一致性程度越高。\n\\item \\textit{质量}是综合评估软件整体质量的复合指标，通过将\\footnote{也可选择对各子指标取平均，结果趋势相似}完整性、可执行性和一致性相乘得到。质量分数越高，表明对生成软件的总体满意度越高，意味着需要人工干预的程度越低。\n\\end{enumerate}",
+        "need_trans": true
+    },
+    {
+        "placeholder": "<PLACEHOLDER_ENV_14>",
+        "env_name": "table",
+        "content": "\\begin{table}[t]\n\\centering\n\\resizebox{0.48\\textwidth}{!}{\n\\begin{tabular}{lcccc}\n\\toprule[1.5pt]\n\\textbf{Method} & \\textbf{Duration} (s) & \\textbf{\\#Tokens} & \\textbf{\\#Files} & \\textbf{\\#Lines} \\\\\n\\midrule[0.75pt]\nGPT-Engineer & 15.6000 & 7,182.5333 & 3.9475 & 70.2041 \\\\\nMetaGPT & 154.0000 & 29,278.6510 & 4.4233 & 153.3000 \\\\\nChatDev & 148.2148 & 22,949.4450 & 4.3900 & 144.3450 \\\\\n\\bottomrule[1.5pt]\n\\end{tabular}\n}\n<PLACEHOLDER_CAP_6>\n\\label{tab:statistics}\n\\end{table}",
+        "trans_content": "\\begin{table}[t]\n\\centering\n\\resizebox{0.48\\textwidth}{!}{\n\\begin{tabular}{lcccc}\n\\toprule[1.5pt]\n\\textbf{Method} & \\textbf{Duration} (s) & \\textbf{\\#Tokens} & \\textbf{\\#Files} & \\textbf{\\#Lines} \\\\\n\\midrule[0.75pt]\nGPT-Engineer & 15.6000 & 7,182.5333 & 3.9475 & 70.2041 \\\\\nMetaGPT & 154.0000 & 29,278.6510 & 4.4233 & 153.3000 \\\\\nChatDev & 148.2148 & 22,949.4450 & 4.3900 & 144.3450 \\\\\n\\bottomrule[1.5pt]\n\\end{tabular}\n}\n<PLACEHOLDER_CAP_6>\n\\label{tab:statistics}\n\\end{table}",
+        "need_trans": false
+    },
+    {
+        "placeholder": "<PLACEHOLDER_ENV_15>",
+        "env_name": "table",
+        "content": "\\begin{table}[t]\n\\centering\n\\resizebox{0.48\\textwidth}{!}{\n\\begin{tabular}{lcccc}\n\\toprule[1.5pt]\n\\textbf{Variant} & \\textbf{Completeness} & \\textbf{Executability} & \\textbf{Consistency} & \\textbf{Quality} \\\\\n\\midrule[0.75pt]\nChatDev & 0.5600 & \\textbf{0.8800} & \\textbf{0.8021} & \\textbf{0.3953} \\\\\n\\midrule[0.25pt]\n$\\leq$Coding & 0.4100 & 0.7700 & 0.7958 & 0.2512 \\\\\n$\\leq$Complete & \\textbf{0.6250} & 0.7400 & 0.7978 & 0.3690 \\\\\n$\\leq$Review & \\underline{0.5750} & \\underline{0.8100} & \\underline{0.7980} & \\underline{0.3717} \\\\\n$\\leq$Testing & 0.5600 & \\textbf{0.8800} & \\textbf{0.8021} & \\textbf{0.3953} \\\\\n\\midrule[0.25pt]\n$\\diagdown$CDH & 0.4700 & 0.8400 & 0.7983 & 0.3094 \\\\\n$\\diagdown$Roles & 0.5400 & 0.5800 & 0.7385 & 0.2212 \\\\\n\\bottomrule[1.5pt]\n\\end{tabular}\n}\n<PLACEHOLDER_CAP_7>\n\\label{tab:ablation}\n\\end{table}",
+        "trans_content": "\\begin{table}[t]\n\\centering\n\\resizebox{0.48\\textwidth}{!}{\n\\begin{tabular}{lcccc}\n\\toprule[1.5pt]\n\\textbf{Variant} & \\textbf{Completeness} & \\textbf{Executability} & \\textbf{Consistency} & \\textbf{Quality} \\\\\n\\midrule[0.75pt]\nChatDev & 0.5600 & \\textbf{0.8800} & \\textbf{0.8021} & \\textbf{0.3953} \\\\\n\\midrule[0.25pt]\n$\\leq$Coding & 0.4100 & 0.7700 & 0.7958 & 0.2512 \\\\\n$\\leq$Complete & \\textbf{0.6250} & 0.7400 & 0.7978 & 0.3690 \\\\\n$\\leq$Review & \\underline{0.5750} & \\underline{0.8100} & \\underline{0.7980} & \\underline{0.3717} \\\\\n$\\leq$Testing & 0.5600 & \\textbf{0.8800} & \\textbf{0.8021} & \\textbf{0.3953} \\\\\n\\midrule[0.25pt]\n$\\diagdown$CDH & 0.4700 & 0.8400 & 0.7983 & 0.3094 \\\\\n$\\diagdown$Roles & 0.5400 & 0.5800 & 0.7385 & 0.2212 \\\\\n\\bottomrule[1.5pt]\n\\end{tabular}\n}\n<PLACEHOLDER_CAP_7>\n\\label{tab:ablation}\n\\end{table}",
+        "need_trans": false
+    },
+    {
+        "placeholder": "<PLACEHOLDER_ENV_16>",
+        "env_name": "figure",
+        "content": "\\begin{figure}[t]\n    \\centering\n    \\includegraphics[width=0.40\\textwidth]{figs/utterance_distribution.pdf}\n    <PLACEHOLDER_CAP_8>\n    \\label{fig:utterance_distribution}\n\\end{figure}",
+        "trans_content": "\\begin{figure}[t]\n    \\centering\n    \\includegraphics[width=0.40\\textwidth]{figs/utterance_distribution.pdf}\n    <PLACEHOLDER_CAP_8>\n    \\label{fig:utterance_distribution}\n\\end{figure}",
+        "need_trans": false
+    },
+    {
+        "placeholder": "<PLACEHOLDER_ENV_17>",
+        "env_name": "figure*",
+        "content": "\\begin{figure*}[t]\n    \\centering\n    \\includegraphics[width=0.99\\textwidth]{figs/reviewer_sankey.pdf}\n    <PLACEHOLDER_CAP_9>\n    \\label{fig:reviewer_sankey}\n\\end{figure*}",
+        "trans_content": "\\begin{figure*}[t]\n    \\centering\n    \\includegraphics[width=0.99\\textwidth]{figs/reviewer_sankey.pdf}\n    <PLACEHOLDER_CAP_9>\n    \\label{fig:reviewer_sankey}\n\\end{figure*}",
+        "need_trans": false
+    },
+    {
+        "placeholder": "<PLACEHOLDER_ENV_18>",
+        "env_name": "figure*",
+        "content": "\\begin{figure*}[t]\n    \\centering\n    \\includegraphics[width=0.99\\textwidth]{figs/test_sankey.pdf}\n    <PLACEHOLDER_CAP_10>\n    \\label{fig:test_sankey}\n\\end{figure*}",
+        "trans_content": "\\begin{figure*}[t]\n    \\centering\n    \\includegraphics[width=0.99\\textwidth]{figs/test_sankey.pdf}\n    <PLACEHOLDER_CAP_10>\n    \\label{fig:test_sankey}\n\\end{figure*}",
+        "need_trans": false
+    }
+]

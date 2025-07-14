@@ -1,0 +1,18 @@
+sys_name = "LaTeXTrans"
+version = "0.0.5"
+target_language = "ch"
+source_language = "en"
+paper_list = ["2307.07924"]
+tex_sources_dir = "tex-source"
+output_dir = "outputs"
+update_term = "False"
+mode = 2
+user_term = ""
+
+category = {}
+
+
+[llm_config]
+model = "deepseek-v3"
+api_key = ""
+base_url = ""

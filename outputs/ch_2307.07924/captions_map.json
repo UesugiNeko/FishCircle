@@ -1,0 +1,62 @@
+[
+    {
+        "placeholder": "<PLACEHOLDER_CAP_1>",
+        "cap_type": "title",
+        "content": "\\title{ChatDev: Communicative Agents for Software Development}",
+        "trans_content": "\\title{ChatDev：面向软件开发的多智能体通信框架}"
+    },
+    {
+        "placeholder": "<PLACEHOLDER_CAP_2>",
+        "cap_type": "caption",
+        "content": "\\caption{ChatDev, a \\uwave{chat}-powered software \\uwave{dev}elopment framework, integrates LLM agents with various social roles, working autonomously to develop comprehensive solutions via multi-agent collaboration.}",
+        "trans_content": "\\caption{ChatDev，一个基于\\uwave{聊天}驱动的软件\\uwave{开发}框架，通过集成具有不同社会角色的LLM智能体，以多智能体协作的方式自主开发综合性解决方案。}"
+    },
+    {
+        "placeholder": "<PLACEHOLDER_CAP_3>",
+        "cap_type": "caption",
+        "content": "\\caption{Upon receiving a preliminary task requirement (\\eg ``\\textit{develop a Gomoku game}''), these software agents engage in multi-turn communication and perform instruction-following along a chain-structured workflow, collaborating to execute a series of subtasks autonomously to craft a comprehensive solution.}",
+        "trans_content": "\\caption{在接收到初步任务需求（例如``\\textit{开发五子棋游戏}''）后，这些软件智能体通过多轮对话参与协作，并沿着链式结构的工作流执行指令跟随，通过自主完成一系列子任务来构建完整的解决方案。}"
+    },
+    {
+        "placeholder": "<PLACEHOLDER_CAP_4>",
+        "cap_type": "caption",
+        "content": "\\caption{Overall performance of the LLM-powered software development methods, encompassing both single-agent (\\includegraphics[height=8pt]{figs/p4.png}) and multi-agent (\\includegraphics[height=8pt]{figs/p5.png}) paradigms. Performance metrics are averaged for all tasks. The top scores are in bold, with second-highest underlined. $\\dagger$ indicates significant statistical differences (p$\\le$0.05) between a baseline and ours.}",
+        "trans_content": "\\caption{基于大语言模型的软件开发方法整体性能，涵盖单智能体（\\includegraphics[height=8pt]{figs/p4.png}）与多智能体（\\includegraphics[height=8pt]{figs/p5.png}）两种范式。性能指标为所有任务的平均值。最高分以粗体显示，次高分加下划线。$\\dagger$表示基线方法与我们的方法之间存在显著统计差异（p$\\le$0.05）。}"
+    },
+    {
+        "placeholder": "<PLACEHOLDER_CAP_5>",
+        "cap_type": "caption",
+        "content": "\\caption{Pairwise evaluation results.}",
+        "trans_content": "\\caption{成对评估结果。}"
+    },
+    {
+        "placeholder": "<PLACEHOLDER_CAP_6>",
+        "cap_type": "caption",
+        "content": "\\caption{Software statistics include Duration (time consumed), \\#Tokens (number of tokens used), \\#Files (number of code files generated), and \\#Lines (total lines of code across all files) in the software generation process.}",
+        "trans_content": "\\caption{软件统计数据包括软件生成过程中的持续时间（消耗时间）、\\#Tokens（使用的令牌数量）、\\#Files（生成的代码文件数量）以及\\#Lines（所有文件中的代码总行数）。}"
+    },
+    {
+        "placeholder": "<PLACEHOLDER_CAP_7>",
+        "cap_type": "caption",
+        "content": "\\caption{Ablation study on main components or mechanisms. $\\leq x$ denotes halting the chat chain after the completion of the $x$ phrase, and $\\diagdown$ denotes the removing operation. CDH denotes the communicative dehallucination mechanism.}",
+        "trans_content": "\\caption{主要组件或机制的消融研究。$\\leq x$ 表示在完成第$x$个短语后终止对话链，$\\diagdown$ 表示移除操作。CDH表示通信式去幻觉机制。}"
+    },
+    {
+        "placeholder": "<PLACEHOLDER_CAP_8>",
+        "cap_type": "caption",
+        "content": "\\caption{The utterance distribution of agent communications throughout the entire development process.}",
+        "trans_content": "\\caption{智能体通信在整个开发过程中的话语分布。}"
+    },
+    {
+        "placeholder": "<PLACEHOLDER_CAP_9>",
+        "cap_type": "caption",
+        "content": "\\caption{The chart demonstrates the distribution of suggestions made by a reviewer agent during a multi-round reviewing process, where each sector in the chart represents a different category of suggestion.}",
+        "trans_content": "\\caption{该图表展示了审稿智能体在多轮审稿过程中所提建议的分布情况，其中图表中的每个扇形区域代表不同类别的建议。}"
+    },
+    {
+        "placeholder": "<PLACEHOLDER_CAP_10>",
+        "cap_type": "caption",
+        "content": "\\caption{The diagram illustrates the progression of iterations in a multi-round testing process, where each colored column represents a dialogue round, showcasing the evolution of the solution through successive stages of testing.}",
+        "trans_content": "\\caption{该图展示了多轮测试过程中迭代的进展，其中每个彩色柱代表一个对话轮次，通过连续的测试阶段展示解决方案的演化过程。}"
+    }
+]
