@@ -15,6 +15,7 @@ from datetime import datetime
 import random
 from streamlit_pdf_viewer import pdf_viewer
 import tempfile
+import atexit
 
 # ---------- 路径配置 ----------
 # 获取当前工作目录
@@ -144,8 +145,8 @@ def update_config(target_lang, source_lang, arxiv_id, tex_sources_dir, output_di
         "output_dir": output_dir.replace("\\", "\\\\"),
         "category": {},
         "update_term": update_term,
-        "mode": 0,
-        "user_term":"",
+        "mode": mode,
+        "user_term":user_term.replace("\\", "\\\\"),
         "llm_config": {
             "model": model_name,
             "api_key": api_key,
@@ -181,6 +182,16 @@ base_url = "{config['llm_config']['base_url']}"
     # with open(save_path, "w") as f:
     #     toml.dump(config, f)
 
+def choose(mode):
+    if mode == "base_model":
+        return 0
+    elif mode == "model with your term pairs":
+        return 2
+    elif mode == "model with paper's summary":
+        return 3
+    elif mode == "models with your term pair and summary":
+        return 4
+    
 
 def encode_pdf_base64(pdf_path):
     '''编码pdf'''
@@ -224,7 +235,11 @@ def st_display_pdf_double(pdf_source_dir, pdf_target_dir, selected_source, selec
                 key="pdf_viewer_target"
             )
 
-
+def clearup():
+    '''临时文件清理'''
+    if os.path.exists(temp_file_path):
+        os.unlink(temp_file_path)
+        st.write(f"Cleared temporary file:{temp_file_path}.")
 # ---------- Lottie 动画 URL 加载 ----------
 def load_lottie_url(url):
     r = requests.get(url)
@@ -302,6 +317,13 @@ with st.sidebar:
                              help="Update term pairs in the paper",
                              value=False)
     
+    mode_1 = st.selectbox("Translation Mode",
+                        ["base_model", "model with your term pairs", "model with paper's summary", "models with your term pair and summary"],
+                        index=0,
+                        help="Select the translation mode.")
+    mode = choose(mode_1)
+
+    
     term = st.selectbox("Term Pairs",
                        ["Use default Term", "Use MyTerm"],
                        index=0,
@@ -310,11 +332,23 @@ with st.sidebar:
         updated_file = st.file_uploader("Upload your Term file",
                                       type=["csv"],
                                       help="Please upload your Term file (format like 'english,chinese').")
-        # if updated_file:
-        #     tem = tempfile.NamedTemporaryFile(delete=False, suffix=".csv", mode="w+b")
-        #     temp_file_path = tem.name
+        if updated_file:
+            tmp = tempfile.NamedTemporaryFile(delete=False, suffix=".csv", mode="w+b")
+            temp_file_path = tmp.name
 
-            
+            tmp.write(updated_file.getvalue())
+            tmp.close()
+
+            st.session_state.default_config["user_term"] = temp_file_path
+            st.write(f"Uploaded Term file:{temp_file_path}.")
+            atexit.register(clearup)
+
+        else:
+            temp_file_path = ""
+            st.warning("Please upload your Term file.")
+    else:
+        temp_file_path = ""
+
 
     
     model_name = st.text_input("Model Name",
@@ -343,7 +377,7 @@ with st.sidebar:
                                 help="Directory to store output files.")
 
 
-    update_config(target_lang, source_lang, arxiv_id, tex_sources_dir, output_dir, update_term,None,None,model_name,api_key,base_url)
+    update_config(target_lang, source_lang, arxiv_id, tex_sources_dir, output_dir, update_term, mode, temp_file_path, model_name, api_key, base_url)
 
 
     # 配置文件保存与导入
@@ -523,7 +557,7 @@ if view_enable:
             st_display_pdf_single(pdf_path, selected_pdf)
     
     with tab2:
-        pdf_sources_dir = os.path.join(output_dir, f"ch_{arxiv_id}")
+        pdf_sources_dir = os.path.join(tex_sources_dir, f"{arxiv_id}")
         pdf_target_dir = os.path.join(output_dir, f"ch_{arxiv_id}")
 
         if not os.path.exists(pdf_target_dir) or not os.path.exists(pdf_sources_dir):
