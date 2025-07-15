@@ -34,6 +34,8 @@ def main():
     parser.add_argument("--output", type=str, default="", help="output directory.")
     parser.add_argument("--source", type=str, default="", help="tex source directory.")
     parser.add_argument("--save_config", type=str, default="", help="Path to save config.")
+    parser.add_argument("--valid", "-v", action="store_true", help="use valid agent.")
+    parser.add_argument("--filter", "-f", action="store_true", help="use filter agent.")
 
 
 
