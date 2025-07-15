@@ -2,16 +2,15 @@ sys_name = "LaTeXTrans"
 version = "0.1.0"
 target_language = "ch"
 source_language = "en"
-paper_list = [ "2307.07924",]
-tex_sources_dir = "tex-source"
-output_dir = "outputs"
+paper_list = []
+tex_sources_dir = ""
+output_dir = ""
+category = {}
 update_term = "False"
-mode = ""
+mode = 0
 user_term = ""
 
-category = {}
-
 [llm_config]
-model = "deepseek-v3"
+model = ""
 api_key = ""
 base_url = ""
