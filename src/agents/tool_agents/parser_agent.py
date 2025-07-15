@@ -29,7 +29,7 @@ class ParserAgent(BaseToolAgent):
         pm.init_prompts(self.config["source_language"], self.config["target_language"])
         self.log(f"🤖💬 Starting parsing for project...⏳: {os.path.basename(self.project_dir)}.")
 
-        from TransLatex.src.formats.latex.parser import LatexParser
+        from src.formats.latex.parser import LatexParser
         latex_parser = LatexParser(self.project_dir, self.output_dir)
         latex_parser.parse() 
         # latex_parser.parse_no_env_cap_ph()
