@@ -63,20 +63,20 @@ class CoordinatorAgent:
                                            output_dir=transed_project_dir,
                                            trans_mode=self.mode)
         await translator_agent.execute()  # 异步调用
-        # validator_agent = ValidatorAgent(config=self.config,
-        #                                     project_dir=self.project_dir,
-        #                                     output_dir=transed_project_dir)
-        # errors_report = validator_agent.execute()
-        # MAX_RETRIES = 3
-        # retry_count = 0
-        # if errors_report:
-        #     translator_agent.trans_mode = 1
+        validator_agent = ValidatorAgent(config=self.config,
+                                            project_dir=self.project_dir,
+                                            output_dir=transed_project_dir)
+        errors_report = validator_agent.execute()
+        MAX_RETRIES = 3
+        retry_count = 0
+        if errors_report:
+            translator_agent.trans_mode = 1
 
-        # while  errors_report and retry_count < MAX_RETRIES: # 3 times
-        #     translator_agent.errors_report = errors_report
-        #     translator_agent.execute(error_retry_count=retry_count, Maxtry=MAX_RETRIES)
-        #     errors_report = validator_agent.execute(errors_report)
-        #     retry_count += 1
+        while errors_report and retry_count < MAX_RETRIES: # 3 times
+            translator_agent.errors_report = errors_report
+            await translator_agent.execute(error_retry_count=retry_count, Maxtry=MAX_RETRIES)
+            errors_report = validator_agent.execute(errors_report)
+            retry_count += 1
 
         # generator_agent = GeneratorAgent(config=self.config,
         #                                  project_dir=self.project_dir,

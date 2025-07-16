@@ -17,6 +17,8 @@ from bs4 import BeautifulSoup
 from tqdm import tqdm
 from typing import List
 import time
+import streamlit as st
+import sys
 
 options = r"\[[^\[\]]*?\]"
 spaces = r"[ \t]*"
@@ -861,6 +863,12 @@ def download_tex(arxiv_id: str, tex_url: str, save_dir: str, headers: dict):
         with requests.get(tex_url, headers=headers, stream=True, timeout=20) as r:
             r.raise_for_status()
             total_size = int(r.headers.get("Content-Length", 0))
+
+            sys.stderr = open(os.devnull, 'w')
+            st_progress = st.progress(0)
+            status_text = st.empty()
+            sys.stderr = sys.__stderr__
+
             with open(file_path, "wb") as f, tqdm(
                 desc=f"Download: {arxiv_id}",
                 total=total_size,
@@ -872,10 +880,26 @@ def download_tex(arxiv_id: str, tex_url: str, save_dir: str, headers: dict):
                     if chunk:
                         f.write(chunk)
                         bar.update(len(chunk))
+
+                         # 更新Streamlit进度条
+                        if total_size > 0:
+                            sys.stderr = open(os.devnull, 'w')
+                            progress = bar.n / total_size
+                            st_progress.progress(progress)
+                            status_text.text(f"下载进度: {bar.n/1024/1024:.2f}MB / {total_size/1024/1024:.2f}MB")
+                            sys.stderr = sys.__stderr__
+            
+        sys.stderr = open(os.devnull, 'w')
+        st.success(f"[SUCCESS] {arxiv_id} successfully downloaded to {file_path}.")
+        sys.stderr = sys.__stderr__
+
         print(f"[SUCCESS] {arxiv_id} successfully downloaded to {file_path}.")    
         return os.path.join(save_dir, f"{arxiv_id}")
 
     except requests.RequestException as e:
+        sys.stderr = open(os.devnull, 'w')
+        st.error(f"[FAIL] {arxiv_id} download failed: {e}")
+        sys.stderr = sys.__stderr__
         print(f"[FAIL] {arxiv_id} download failed: {e}")
 
 def batch_download_arxiv_tex(arxiv_ids: List[str], save_dir: str = "./tex_sources"):
@@ -907,8 +931,14 @@ def batch_download_arxiv_tex(arxiv_ids: List[str], save_dir: str = "./tex_source
             response.raise_for_status()
             with open(pdf_path, 'wb') as f:
                 f.write(response.content)
+            sys.stderr = open(os.devnull, 'w')
+            st.success(f"[SUCCESS] Downloaded PDF for {arxiv_id}")
+            sys.stderr = sys.__stderr__
             print(f"[SUCCESS] Downloaded PDF for {arxiv_id}")
         except Exception as e:
+            sys.stderr = open(os.devnull, 'w')
+            st.success(f"[ERROR] Failed to download PDF for {arxiv_id}: {str(e)}")
+            sys.stderr = sys.__stderr__
             print(f"[ERROR] Failed to download PDF for {arxiv_id}: {str(e)}")
 
     return source_dirs
@@ -973,6 +1003,22 @@ def extract_arxiv_ids(arxiv_list):
         if match:
             ids.append(match.group(1))
     return ids
+
+def extract_arxiv_ids_V2(item):
+
+    ids = ""
+    # 如果是纯ID，直接加入
+    if is_valid_arxiv_id(item):
+        ids = item
+
+    else:
+        # 否则尝试从URL中提取
+        url_pattern = r'(?:arxiv\.org/)(?:abs|pdf|e-print)/([\w\-]+/\d{7}|\d{4}\.\d{5,7})(?:\.pdf)?'
+        match = re.search(url_pattern, item)
+        if match:
+            ids = match.group(1)
+    return ids
+
 
 # get_texts_from_data(
 #     folder_path="D:\code\AutoLaTexTrans\data\cs",

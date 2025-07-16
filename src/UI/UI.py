@@ -23,7 +23,7 @@ base_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__fil
 sys.path.append(base_dir)
 
 from src.agents.coordinator_agent import CoordinatorAgent
-from src.formats.latex.utils import get_profect_dirs, batch_download_arxiv_tex, extract_compressed_files, get_arxiv_category
+from src.formats.latex.utils import get_profect_dirs, batch_download_arxiv_tex, extract_compressed_files, get_arxiv_category, extract_arxiv_ids_V2
 from src.formats.latex.prompts import init_prompts
 config_dir = os.path.join(base_dir, "config")
 os.makedirs(config_dir, exist_ok=True)
@@ -36,6 +36,15 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="auto",
 )
+
+# 添加侧边栏宽度设置
+st.markdown("""
+<style>
+    section[data-testid="stSidebar"] {
+        width: 350px !important;
+    }
+</style>
+""", unsafe_allow_html=True)
 
 
 # ---------- 辅助函数 ----------
@@ -234,6 +243,10 @@ def st_display_pdf_double(pdf_source_dir, pdf_target_dir, selected_source, selec
                 height=900,
                 key="pdf_viewer_target"
             )
+    # 显示文件大小信息
+    source_size = os.path.getsize(os.path.join(pdf_source_dir, selected_source)) / (1024 * 1024)
+    target_size = os.path.getsize(os.path.join(pdf_target_dir, selected_target)) / (1024 * 1024)
+    st.caption(f"Original: {selected_source} ({source_size:.2f} MB) | Translated: {selected_target} ({target_size:.2f} MB)")
 
 def clearup():
     '''临时文件清理'''
@@ -293,13 +306,15 @@ st.markdown("---")
 
 # ---------- 侧边栏设置 ----------
 with st.sidebar:
-    st.header("⚙️ Translation Settings")
+    st.header("LaTeXTrans 🚀")
     
     # 使用 st.session_state 来初始化 widget 值
     arxiv_id = st.text_input("Please enter ArXiv ID:",
                             placeholder="e.g., 2305.12345",
                             help="Enter the ArXiv ID of the paper you want to translate.")
     
+    arxiv_id = extract_arxiv_ids_V2(arxiv_id)
+
     col1, col2 = st.columns(2)
     with col1:
         source_lang = st.selectbox("Source Language",
@@ -349,96 +364,92 @@ with st.sidebar:
     else:
         temp_file_path = ""
 
-
+    with st.expander("🔑 Model Settings", expanded=False):
+        model_name = st.text_input("Model Name",
+                                value=default_model_name,
+                                placeholder="Such as: DeepSeek-R1",
+                                key="model")
+        api_key = st.text_input("API Key", 
+                            value=default_api_key,
+                            placeholder="Your API Key", 
+                            type="password",
+                            key="api_key")
+        base_url = st.text_input("Base URL", 
+                                value=default_base_url,
+                                placeholder="Such as: https://api.deepseek.com/v1",
+                                key="base_url")
     
-    model_name = st.text_input("Model Name",
-                              value=default_model_name,
-                              placeholder="Such as: DeepSeek-R1",
-                              key="model")
-    api_key = st.text_input("API Key", 
-                           value=default_api_key,
-                           placeholder="Your API Key", 
-                           type="password",
-                           key="api_key")
-    base_url = st.text_input("Base URL", 
-                            value=default_base_url,
-                            placeholder="Such as: https://api.deepseek.com/v1",
-                            key="base_url")
+    with st.expander("📁 FIle setting", expanded=False):
+        # 选择下载文件和翻译文件的保存位置
+        tex_sources_dir = st.text_input("Projects Directory",
+                                    value=default_tex_sources_dir,
+                                    key="tex_sources_dir",
+                                    help="Directory to store downloaded LaTeX source files.")
 
-    # 选择下载文件和翻译文件的保存位置
-    tex_sources_dir = st.text_input("Projects Directory",
-                                value=default_tex_sources_dir,
-                                key="tex_sources_dir",
-                                help="Directory to store downloaded LaTeX source files.")
-
-    output_dir = st.text_input("Output Directory",
-                                value=default_output_dir,
-                                key="output_dir",
-                                help="Directory to store output files.")
-
+        output_dir = st.text_input("Output Directory",
+                                    value=default_output_dir,
+                                    key="output_dir",
+                                    help="Directory to store output files.")
 
     update_config(target_lang, source_lang, arxiv_id, tex_sources_dir, output_dir, update_term, mode, temp_file_path, model_name, api_key, base_url)
 
-
     # 配置文件保存与导入
-    st.markdown("### ⚙️ Config")
+    with st.expander("⚙️ Config setting", expanded=False):
+        config_file = st.text_input("Config File", 
+                                    placeholder="please input your config file path", 
+                                    key="config_file")
 
-    config_file = st.text_input("Config File", 
-                                placeholder="please input your config file path", 
-                                key="config_file")
+        if config_file:
+            config_files = [f for f in os.listdir(config_file) if f.endswith(".toml")]
+            # 创建下拉选择
+            selected_config = st.selectbox("Load Config",
+                                            ["Select a config file"] + config_files,
+                                            index=0 if config_files else None,
+                                            help="Select a configuration file to load.")
 
-    if config_file:
-        config_files = [f for f in os.listdir(config_file) if f.endswith(".toml")]
-        # 创建下拉选择
-        selected_config = st.selectbox("Load Config",
-                                        ["Select a config file"] + config_files,
-                                        index=0 if config_files else None,
-                                        help="Select a configuration file to load.")
+            if st.button("Load Config", 
+                        use_container_width=True,
+                        help="Load the selected configuration file and update the settings.",
+                        disabled=not config_files):
+                if selected_config and selected_config != "Select a config file":
+                    try:
+                        config_path = os.path.join(config_file, selected_config)
+                        config = load_config(config_path)
+                        
+                        # 更新会话状态中的默认值
+                        st.session_state.default_config = {
+                            "model": config.get("llm_config",{}).get("model", ""),
+                            "api_key": config.get("llm_config",{}).get("api_key", ""),
+                            "base_url": config.get("llm_config",{}).get("base_url", ""),
+                            "tex_sources_dir": config.get("tex_sources_dir", ""),
+                            "output_dir": config.get("output_dir", "")
+                        }
+                        
+                        # 使用 st.rerun() 重新加载页面以应用新配置
+                        st.rerun()
+                    except Exception as e:
+                        st.error(f"加载配置失败: {e}")
+                else:
+                    st.warning("请选择一个有效的配置文件")
 
-        if st.button("Load Config", 
-                    use_container_width=True,
-                    help="Load the selected configuration file and update the settings.",
-                    disabled=not config_files):
-            if selected_config and selected_config != "Select a config file":
-                try:
-                    config_path = os.path.join(config_file, selected_config)
-                    config = load_config(config_path)
-                    
-                    # 更新会话状态中的默认值
-                    st.session_state.default_config = {
-                        "model": config.get("llm_config",{}).get("model", ""),
-                        "api_key": config.get("llm_config",{}).get("api_key", ""),
-                        "base_url": config.get("llm_config",{}).get("base_url", ""),
-                        "tex_sources_dir": config.get("tex_sources_dir", ""),
-                        "output_dir": config.get("output_dir", "")
-                    }
-                    
-                    # 使用 st.rerun() 重新加载页面以应用新配置
-                    st.rerun()
-                except Exception as e:
-                    st.error(f"加载配置失败: {e}")
-            else:
-                st.warning("请选择一个有效的配置文件")
-
-
-    save_name = st.text_input("Config Name",
-                                placeholder="Enter a name for your config",
-                                help="Enter a name for your configuration file.")
-    if st.button("Save Config", use_container_width=True,
-                help="Save your configuration settings to a file."):
-        try:
-            saved_path = save_config(config_file,source_lang, target_lang, model_name, api_key, base_url, tex_sources_dir, output_dir, save_name=save_name if save_name else None)
-            st.success(f"配置已保存到: {saved_path}")
-            # 更新默认配置
-            st.session_state.default_config = {
-                "model": model_name,
-                "api_key": api_key,
-                "base_url": base_url,
-                "tex_sources_dir": tex_sources_dir,
-                "output_dir": output_dir
-            }
-        except Exception as e:
-            st.error(f"保存配置失败: {e}")
+        save_name = st.text_input("Config Name",
+                                    placeholder="Enter a name for your config",
+                                    help="Enter a name for your configuration file.")
+        if st.button("Save Config", use_container_width=True,
+                    help="Save your configuration settings to a file."):
+            try:
+                saved_path = save_config(config_file,source_lang, target_lang, model_name, api_key, base_url, tex_sources_dir, output_dir, save_name=save_name if save_name else None)
+                st.success(f"配置已保存到: {saved_path}")
+                # 更新默认配置
+                st.session_state.default_config = {
+                    "model": model_name,
+                    "api_key": api_key,
+                    "base_url": base_url,
+                    "tex_sources_dir": tex_sources_dir,
+                    "output_dir": output_dir
+                }
+            except Exception as e:
+                st.error(f"保存配置失败: {e}")
     
     
 
@@ -468,15 +479,9 @@ if st.session_state.get("translating", False):
 
         st.info(f"Translating `{arxiv_id}` from {source_lang} to {target_lang}...")
 
-        # 多阶段进度条
-        progress_bar = st.progress(0)
-        status_text = st.empty()
+
 
         # # 1.下载论文
-        status_text.info("📥 Downloading paper from arXiv...")
-        for i in range(0, 20):
-            time.sleep(0.1 + random.uniform(0, 0.2))
-            progress_bar.progress(i)
 
         config_path = os.path.join(config_dir, "default.toml")
         config = load_config(config_path)
@@ -503,15 +508,8 @@ if st.session_state.get("translating", False):
             projects = get_profect_dirs(projects_dir)
             if not projects:
                 st.error("❌ No projects found. Check 'tex_sources_dir' and 'paper_list' in config.")
-                progress_bar.progress(30)
-            else:
-                for i in range(20, 30):
-                    time.sleep(0.1)
-                    progress_bar.progress(i)
 
         # 2.翻译 and 生成
-        status_text.info("🧠 Translating LaTeX content and Generating PDF...")
-
         for project_dir in projects:
             try:
                 # init_prompts(source_lang=config["source_language"], target_lang=config["target_language"])
@@ -525,10 +523,6 @@ if st.session_state.get("translating", False):
             except Exception as e:
                 st.error(f"❌ Error processing project {os.path.basename(project_dir)}: {e}")
                 continue
-
-        time.sleep(0.5)
-        progress_bar.empty()
-        status_text.success("✅ Translation pipeline complete!")
         st.balloons()
 
 # ---------- 预览 ----------

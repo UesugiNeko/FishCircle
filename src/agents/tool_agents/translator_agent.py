@@ -17,6 +17,9 @@ from tqdm import tqdm
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 
+import streamlit as st
+
+
 base_dir = os.getcwd()
 sys.path.append(base_dir)
 
@@ -63,7 +66,13 @@ class TranslatorAgent(BaseToolAgent):
         但其他mode需要修改execute内部内容及其下游方法
         """
         pm.init_prompts(self.config["source_language"], self.config["target_language"])
+        self.add_placeholder()
         self.build_term_dict()
+
+        sys.stderr = open(os.devnull, 'w')
+        process_bar = st.progress(0)
+        status_text = st.empty()
+        sys.stderr = sys.__stderr__
 
         sections = self.read_file(Path(self.output_dir, "sections_map.json"), "json")
         captions = self.read_file(Path(self.output_dir, "captions_map.json"), "json")
@@ -71,6 +80,11 @@ class TranslatorAgent(BaseToolAgent):
 
         if self.trans_mode == 0 or self.trans_mode == 2:
             self.log(f"🤖💬 Starting translating for project...⏳: {os.path.basename(self.project_dir)}.")
+
+            sys.stderr = open(os.devnull, 'w')
+            status_text.text(f"🤖💬 Starting translating for project...⏳: {os.path.basename(self.project_dir)}.")
+            process_bar.progress(5)
+            sys.stderr = sys.__stderr__
 
             async with aiohttp.ClientSession() as session:
                 sem = asyncio.Semaphore(10)  # 考虑到api响应速度,大概10s左右处理一个section,每半秒启动一次调用,10左右应该不会浪费api token
@@ -82,15 +96,29 @@ class TranslatorAgent(BaseToolAgent):
 
                 tasks = [process_section(i, sec) for i, sec in enumerate(sections)]
 
+                completed = 0
+
                 for future in tqdm(asyncio.as_completed(tasks), total=len(tasks), desc="Translating...",
                                    unit="section"):
                     i, translated_section = await future
                     sections[i] = translated_section
+                    
+                    completed += 1
+
+                    sys.stderr = open(os.devnull, 'w')
+                    process = int(5 + 90 * completed / len(tasks))
+                    process_bar.progress(process) 
+                    sys.stderr = sys.__stderr__
 
                     # 保存考虑修改为内存整合一次硬存读写
                     self.save_file(Path(self.output_dir, "sections_map.json"), "json", sections)
                     self.save_file(Path(self.output_dir, "captions_map.json"), "json", captions)
                     self.save_file(Path(self.output_dir, "envs_map.json"), "json", envs)
+
+                sys.stderr = open(os.devnull, 'w')
+                status_text.text("🔍 Validating translation results ..")
+                process_bar.progress(95)
+                sys.stderr = sys.__stderr__
 
                 await self._val_fail_parts(Maxtry=Maxtry,
                                      sections=sections,
@@ -100,63 +128,48 @@ class TranslatorAgent(BaseToolAgent):
 
                 self.log(f"✅ Successfully translated sections!")
 
+                sys.stderr = open(os.devnull, 'w')
+                status_text.text("✅ Successfully translated sections!")
+                process_bar.progress(100)
+                st.success("✅ Successfully translated sections!")
+                process_bar.empty()
+                status_text.empty()
+                sys.stderr = sys.__stderr__
+
+
         elif self.trans_mode == 1:
             """
             暂时没有进入该mode1分支,故加注释
+
             """
-            # error_parts = [error_part["num_or_ph"] for error_part in self.errors_report]
-            # self.log(f"🤖💬 Starting retranslating for error parts:{error_parts}, the {error_retry_count+1} chance for {Maxtry} total.")
-            # self._retranslate_error_parts(secs=sections,
-            #                               caps=captions,
-            #                               envs=envs)
-            #
-            # self.save_file(Path(self.output_dir, "sections_map.json"), "json", sections)
-            # self.save_file(Path(self.output_dir, "captions_map.json"), "json", captions)
-            # self.save_file(Path(self.output_dir, "envs_map.json"), "json", envs)
-            #
-            # self.fail_section_nums.clear()
-            # self.fail_caption_phs.clear()
-            # self.fail_env_phs.clear()
-            # self.have_fail_parts = False
-            #
-            # self._val_fail_parts(Maxtry=Maxtry,
-            #                      sections=sections,
-            #                      captions=captions,
-            #                      envs=envs)
+            async with aiohttp.ClientSession() as session:
+                error_parts = [error_part["num_or_ph"] for error_part in self.errors_report]
+                self.log(
+                    f"🤖💬 Starting retranslating for error parts:{error_parts}, the {error_retry_count + 1} chance for {Maxtry} total.")
+
+                await self._retranslate_error_parts(secs=sections,
+                                                    caps=captions,
+                                                    envs=envs,
+                                                    session=session)
+
+                self.save_file(Path(self.output_dir, "sections_map.json"), "json", sections)
+                self.save_file(Path(self.output_dir, "captions_map.json"), "json", captions)
+                self.save_file(Path(self.output_dir, "envs_map.json"), "json", envs)
+
+                self.fail_section_nums.clear()
+                self.fail_caption_phs.clear()
+                self.fail_env_phs.clear()
+                self.have_fail_parts = False
+
+                await self._val_fail_parts(Maxtry=Maxtry,
+                                           sections=sections,
+                                           captions=captions,
+                                           envs=envs,
+                                           session=session)
 
             self.log(f"✅ Successfully retranslated error parts!")
 
-        elif self.trans_mode == 3 or self.trans_mode == 4:
-            """
-            暂时没有进入该mode4分支,故加注释
-            """
-            # self.log(f"🤖💬 Starting translating for project...⏳: {os.path.basename(self.project_dir)}.")
-            #
-            # for i, section in tqdm(enumerate(sections), desc="Translating...", total=len(sections), unit="section"):
-            #     try:
-            #         self.currant_content = self._extract_text_from_tex(section["content"])
-            #     except Exception as e:
-            #         pass
-            #     if not self.summary and self.currant_content:
-            #         # self.prev_text = self._merge_with_prev_sections(sections, i)
-            #         self.summary = self._request_llm_for_summary(get_summary_system_prompt, self.currant_content)
-            #
-            #     section = self.translate(section, envs, captions)
-            #     sections[i] = section
-            #     if self.summary and self.currant_content:
-            #         self.summary = self._request_llm_for_refine_summary(refine_summary_system_prompt, self.currant_content, self.summary)
-            #
-            #
-            #     self.save_file(Path(self.output_dir, "sections_map.json"), "json", sections)
-            #     self.save_file(Path(self.output_dir, "captions_map.json"), "json", captions)
-            #     self.save_file(Path(self.output_dir, "envs_map.json"), "json", envs)
-            #
-            # self._val_fail_parts(Maxtry=Maxtry,
-            #                      sections=sections,
-            #                      captions=captions,
-            #                      envs=envs)
             
-            self.log(f"✅ Successfully translated sections!")
 
     async def translate(self,
                         section: Dict[str, Any],
@@ -258,33 +271,85 @@ class TranslatorAgent(BaseToolAgent):
             # else:
             #     print(f"[Warning] Environment placeholder {env_ph} not found.")
 
-    def _retranslate_error_parts(self, secs, caps, envs) -> Any:
-        for error_report in tqdm(self.errors_report, desc="ReTranslating...", unit="part"):
-            error_message = []
-            if "command_error" in error_report:
-                error_message.append(error_report["command_error"])
-            if "ph_error" in error_report:
-                error_message.append(error_report["ph_error"])
-            if "bracket_error" in error_report:
-                error_message.append(error_report["bracket_error"])
-            error_message = "\n".join(error_message)
+    async def _retranslate_error_parts(self, secs, caps, envs, session) -> Any:
 
-            if error_report["part"] == "sec":
-                for i, sec in enumerate(secs):
-                    if error_report["num_or_ph"] == sec["section"]:
-                        secs[i] = self._translate_section(section=sec, error_message=error_message)
+        async with aiohttp.ClientSession() as session:
+            sem = asyncio.Semaphore(20)  # 考虑到api响应速度,大概10s左右处理一个section,每半秒启动一次调用,10左右应该不会浪费api token
 
-            elif error_report["part"] == "env":
-                for i, env in enumerate(envs):
-                    if error_report["num_or_ph"] == env["placeholder"]:
-                        envs[i] = self._translate_env(env=env, error_message=error_message)
+            async def process_ErrorPart(i, error_report):
+                async with sem:
+                    error_message = []
+                    if "command_error" in error_report:
+                        error_message.append(error_report["command_error"])
+                    if "ph_error" in error_report:
+                        error_message.append(error_report["ph_error"])
+                    if "bracket_error" in error_report:
+                        error_message.append(error_report["bracket_error"])
+                    error_message = "\n".join(error_message)
 
-            elif error_report["part"] == "cap":
-                for i, cap in enumerate(caps):
-                    if error_report["num_or_ph"] == cap["placeholder"]:
-                        caps[i] = self._translate_caption(caption=cap, error_message=error_message)
-            else:
-                continue
+                    if error_report["part"] == "sec":
+                        async def process_section(i, sec):
+                            async with sem:
+                                if error_report["num_or_ph"] == sec["section"]:
+                                    sec_async = await self._translate_section(section=sec, error_message=error_message,
+                                                                              session=session)
+                                    return {"index": i, "result": sec_async, "is_valid": True}
+                                else:
+                                    return {"index": None, "result": None, "is_valid": False}
+
+                        tasks_sec = [process_section(i, sec) for i, sec in enumerate(secs)]
+                        for future in asyncio.as_completed(tasks_sec):
+                            result = await future
+                            # 只有处理目标caption时才会返回有意义的结果
+                            if result["is_valid"]:  # 确保i不是None
+                                i = result["index"]
+                                _sec = result["result"]
+                                secs[i] = _sec
+                    elif error_report["part"] == "env":
+                        async def process_env(i, env):
+                            async with sem:
+                                if error_report["num_or_ph"] == env["placeholder"]:
+                                    env_async = await self._translate_env(env=env, error_message=error_message,
+                                                                          session=session)
+                                    return {"index": i, "result": env_async, "is_valid": True}
+                                else:
+                                    return {"index": None, "result": None, "is_valid": False}
+
+                        tasks_env = [process_env(i, env) for i, env in enumerate(envs)]
+                        for future in asyncio.as_completed(tasks_env):
+                            result = await future
+                            # 只有处理目标caption时才会返回有意义的结果
+                            if result["is_valid"]:  # 确保i不是None
+                                i = result["index"]
+                                _env = result["result"]
+                                envs[i] = _env
+                    elif error_report["part"] == "cap":
+                        async def process_cap(i, cap):
+                            async with sem:
+                                if error_report["num_or_ph"] == cap["placeholder"]:
+                                    cap_async = await self._translate_caption(caption=cap, error_message=error_message,
+                                                                              session=session)
+                                    return {"index": i, "result": cap_async, "is_valid": True}
+                                else:
+                                    return {"index": None, "result": None, "is_valid": False}
+
+                        tasks_cap = [process_cap(i, cap) for i, cap in enumerate(caps)]
+                        for future in asyncio.as_completed(tasks_cap):
+                            result = await future
+                            # 只有处理目标caption时才会返回有意义的结果
+                            if result["is_valid"]:  # 确保i不是None
+                                i = result["index"]
+                                _cap = result["result"]
+                                caps[i] = _cap
+                    return i
+
+            tasks_ErrorPart = [process_ErrorPart(i, error_report) for i, error_report in enumerate(self.errors_report)]
+            for future in tqdm(asyncio.as_completed(tasks_ErrorPart), total=len(tasks_ErrorPart), desc="Translating...",
+                               unit="section"):
+                result = await future
+                # 只有处理目标caption时才会返回有意义的结果
+                if result is not None:  # 确保i不是None
+                    i = result
 
     async def _translate_section(self, section: Dict[str, Any], session: aiohttp.ClientSession, error_message=None) -> \
     Dict[str, Any]:
@@ -301,11 +366,14 @@ class TranslatorAgent(BaseToolAgent):
                 session=session
             )
         elif self.trans_mode == 1:
-            transed_section["trans_content"] = self._request_llm_for_retrans_error_parts(pm.retrans_error_parts_system_prompt,
-                                                                                         part=transed_section,
-                                                                                         error_message=error_message,
-                                                                                         fail_part=section_num,
-                                                                                         type="sec")
+            transed_section["trans_content"] = await self._request_llm_for_retrans_error_parts(
+            pm.retrans_error_parts_system_prompt,
+            part=transed_section,
+            error_message=error_message,
+            fail_part=section_num,
+            type="sec",
+            session=session)
+
         elif self.trans_mode == 2:
             """
             修改mode0和2为异步并发,包括
@@ -346,49 +414,6 @@ class TranslatorAgent(BaseToolAgent):
                     self._updated_term_dict_v2(term_text)
             except Exception as e:
                 return transed_section
-            
-        elif self.trans_mode == 3:
-            if not self.summary:
-            # if not self.prev_text or not self.prev_transed_text:
-                transed_section["trans_content"] = self._request_llm_for_trans(pm.section_system_prompt,
-                                                            section["content"], 
-                                                            fail_part=section_num,
-                                                            type="sec"
-                                                            )
-            else:
-                transed_section["trans_content"] = self._request_llm_for_trans_with_sum(pm.section_system_prompt_with_sum,
-                                                            section["content"], 
-                                                            fail_part=section_num,
-                                                            type="sec"
-                                                            )
-                
-        elif self.trans_mode == 4:
-            # if not self.prev_text or not self.prev_transed_text or not self.term_dict:
-            if not self.summary or not self.term_dict:
-                transed_section["trans_content"] = self._request_llm_for_trans(pm.section_system_prompt,
-                                                            section["content"], 
-                                                            fail_part=section_num,
-                                                            type="sec"
-                                                            )
-            else:
-
-                transed_section["trans_content"] = self._request_llm_for_trans_with_terms_sum(pm.section_system_prompt_with_terms_sum,
-                                                            section["content"], 
-                                                            fail_part=section_num,
-                                                            type="sec"
-                                                            )
-            try:
-                if self.update_term == True:
-                    src_text = self._extract_text_from_tex(transed_section["content"])
-                    tgt_text = self._extract_text_from_tex(transed_section["trans_content"])
-                    term_text = self._request_llm_for_extract_terms(pm.extract_terminology_system_prompt,
-                                                            src_text,
-                                                            tgt_text)
-
-                    # self._updated_term_dict(term_text)
-                    self._updated_term_dict_v2(term_text)
-            except Exception as e:
-                return transed_section
 
         return transed_section
 
@@ -398,7 +423,7 @@ class TranslatorAgent(BaseToolAgent):
         """
         transed_caption = caption.copy()
         placeholder = caption["placeholder"]
-        if self.trans_mode == 0 or self.trans_mode == 3:
+        if self.trans_mode == 0:
             transed_caption["trans_content"] = await self._request_llm_for_trans(pm.caption_system_prompt,
                                                         caption["content"],
                                                         fail_part=placeholder,
@@ -408,13 +433,14 @@ class TranslatorAgent(BaseToolAgent):
         elif self.trans_mode == 1:
             """先不改"""
             print("translate_caption_mode_1")
-            transed_caption["trans_content"] = self._request_llm_for_retrans_error_parts(pm.retrans_error_parts_system_prompt,
+            transed_caption["trans_content"] = await self._request_llm_for_retrans_error_parts(pm.retrans_error_parts_system_prompt,
                                                                                          part=transed_caption,
                                                                                          error_message=error_message,
                                                                                          fail_part=placeholder,
-                                                                                         type="cap")
+                                                                                         type="cap",
+                                                                                         session=session)
             
-        elif self.trans_mode == 2 or self.trans_mode == 4:
+        elif self.trans_mode == 2:
             if not self.term_dict:
                 transed_caption["trans_content"] = await self._request_llm_for_trans(pm.caption_system_prompt,
                                                         caption["content"], 
@@ -443,19 +469,6 @@ class TranslatorAgent(BaseToolAgent):
             except Exception as e:
                 return transed_caption
 
-        # elif self.trans_mode == 3:
-        #     if not self.summary:
-        #         transed_caption["trans_content"] = self._request_llm_for_trans(caption_system_prompt, 
-        #                                                 caption["content"], 
-        #                                                 fail_part=placeholder,
-        #                                                 type="cap"
-        #                                                 )
-        #     else:
-        #         transed_caption["trans_content"] = self._request_llm_for_trans_with_sum(caption_system_prompt_with_sum,
-        #                                                                                   caption["content"],
-        #                                                                                   fail_part=placeholder,
-        #                                                                                   type="cap")
-
         return transed_caption
 
     async def _translate_env(self, env: Dict[str, Any], session: aiohttp.ClientSession, error_message=None) -> Dict[str, Any]:
@@ -464,7 +477,7 @@ class TranslatorAgent(BaseToolAgent):
         """
         transed_env = env.copy()
         placeholder = env["placeholder"]
-        if self.trans_mode == 0 or self.trans_mode == 3: # sum
+        if self.trans_mode == 0: # sum
             if env["need_trans"]:
                 transed_env["trans_content"] = await self._request_llm_for_trans(pm.env_system_prompt,
                                                             env["content"], 
@@ -475,12 +488,13 @@ class TranslatorAgent(BaseToolAgent):
             else:
                 transed_env["trans_content"] = env["content"]
         elif self.trans_mode == 1:
-                transed_env["trans_content"] = self._request_llm_for_retrans_error_parts(pm.retrans_error_parts_system_prompt,
+                transed_env["trans_content"] = await self._request_llm_for_retrans_error_parts(pm.retrans_error_parts_system_prompt,
                                                                                          part=transed_env,
                                                                                          error_message=error_message,
                                                                                          fail_part=placeholder,
-                                                                                         type="env")
-        elif self.trans_mode == 2 or self.trans_mode == 4: # dict or sum+dict
+                                                                                         type="env",
+                                                                                         session = session)
+        elif self.trans_mode == 2: # dict or sum+dict
             if not self.term_dict:
                 if env["need_trans"]:
                     transed_env["trans_content"] = await self._request_llm_for_trans(pm.env_system_prompt,
@@ -516,25 +530,7 @@ class TranslatorAgent(BaseToolAgent):
                         self._updated_term_dict_v2(text)
                 except Exception as e:
                     return transed_env
-                
-        # elif self.trans_mode == 3:
-        #     if not self.summary:
-        #         if env["need_trans"]:
-        #             transed_env["trans_content"] = self._request_llm_for_trans(env_system_prompt, 
-        #                                                     env["content"], 
-        #                                                     fail_part=placeholder,
-        #                                                     type="env"
-        #                                                     )
-        #         else:
-        #             transed_env["trans_content"] = env["content"]
-        #     else:
-        #         if env["need_trans"]:
-        #             transed_env["trans_content"] = self._request_llm_for_trans_with_sum(env_system_prompt_with_sum,
-        #                                                                                     env["content"],
-        #                                                                                     fail_part=placeholder,
-        #                                                                                     type="env")
-        #         else:
-        #             transed_env["trans_content"] = env["content"]
+
 
         return transed_env
 
@@ -641,24 +637,25 @@ class TranslatorAgent(BaseToolAgent):
 
                     return text
 
-    def _request_llm_for_retrans_error_parts(self, 
-                                             system_prompt: str, 
-                                             part: Dict[str, Any], 
-                                             error_message: str, 
-                                             fail_part: str, 
-                                             type: str) -> str:
-        
+    async def _request_llm_for_retrans_error_parts(self,
+                                                   system_prompt: str,
+                                                   part: Dict[str, Any],
+                                                   error_message: str,
+                                                   fail_part: str,
+                                                   type: str,
+                                                   session: aiohttp.ClientSession) -> str:
+
         user_prompt = f"[Original]:\n{part['content']}\n[Translation]:\n{part['trans_content']}\n[Error]:\n{error_message}"
         # print(user_prompt,'\n')
         payload = {
             "model": f"{self.model}",
             "messages": [
                 {
-                    "role": "system", 
+                    "role": "system",
                     "content": f"{system_prompt}"
                 },
                 {
-                    "role": "user", 
+                    "role": "user",
                     "content": f"{user_prompt}"
                 }
             ],
@@ -671,243 +668,31 @@ class TranslatorAgent(BaseToolAgent):
             "Authorization": f"Bearer {self.API_KEY}",
             "Content-Type": "application/json"
         }
-        
-        
+
         for attempt in range(1, 4):
             try:
-                response = requests.post(self.base_url, json=payload, headers=headers, timeout=100)
-                response.raise_for_status()  
-                result = response.json()
-                # print(result["choices"][0]["message"]["content"].strip())
-                return result["choices"][0]["message"]["content"].strip()
+                async with session.post(self.base_url, json=payload, headers=headers, timeout=100) as response:
+                    response.raise_for_status()
+                    result = await response.json()
+                    return result["choices"][0]["message"]["content"].strip()
+
             except requests.exceptions.RequestException as e:
                 # print(f"⚠️ The {attempt}th request to translate {fail_part} failed: {e}")
                 if attempt < 3:
-                    time.sleep(5)  
+                    await asyncio.sleep(5)
                 else:
                     self.have_fail_parts = True
                     if type == 'sec':
                         self.fail_section_nums.append(fail_part)
                     elif type == 'cap':
                         self.fail_caption_phs.append(fail_part)
-                    else :
+                    else:
                         self.fail_env_phs.append(fail_part)
 
                     print(f"❌ Failed to translate text, return the original text:{fail_part}. {e}")
                     return part["trans_content"]
 
 
-    def _request_llm_for_trans_with_terms_sum(self, 
-                               system_prompt: str, 
-                               text: str, 
-                               fail_part: str, 
-                               type: str):
-        
-        payload = {
-            "model": f"{self.model}",
-            "messages": [
-                {
-                    "role": "system", 
-                    "content": f"{system_prompt}"
-                },
-                {
-                    "role": "user", 
-                    "content": f"<term dictionary>:(Use these term mappings exactly.)\n{self.term_dict}\n<summary>:(This is the evolving semantic summary to help you understand the overall context.)\n{self.summary}\n<LaTeX text>:\n{text}\n<LaTeX text trasnlation>:"
-                }
-            ],
-            "temperature": 0.7,
-            # "max_length": 100000,
-            "max_new_tokens": 8192
-        }
-
-        headers = {
-            "Authorization": f"Bearer {self.API_KEY}",
-            "Content-Type": "application/json"
-        }
-
-        # if fail_part == "1":
-        #     print(f"<dictionary of proper nouns>\n{self.term_dict}\n<summary>\n{self.summary}\n<LaTeX text>\n{text}")
-        
-        for attempt in range(1, 4):
-            try:
-                response = requests.post(self.base_url, json=payload, headers=headers, timeout=100)
-                response.raise_for_status()  
-                result = response.json()
-                return result["choices"][0]["message"]["content"].strip()
-            except requests.exceptions.RequestException as e:
-                # print(f"⚠️ The {attempt}th request to translate {fail_part} failed: {e}")
-                if attempt < 3:
-                    time.sleep(5)  
-                else:
-                    self.have_fail_parts = True
-                    if type == 'sec':
-                        self.fail_section_nums.append(fail_part)
-                    elif type == 'cap':
-                        self.fail_caption_phs.append(fail_part)
-                    else :
-                        self.fail_env_phs.append(fail_part)
-
-                    print(f"❌ Failed to translate text, return the original text:{fail_part}. {e}")
-                    return text      
-
-    def _request_llm_for_trans_with_sum(self, 
-                               system_prompt: str, 
-                               text: str, 
-                               fail_part: str, 
-                               type: str):
-        
-        payload = {
-            "model": f"{self.model}",
-            "messages": [
-                {
-                    "role": "system", 
-                    "content": f"{system_prompt}"
-                },
-                {
-                    "role": "user", 
-                    "content": f"<summary>: (This is the evolving semantic summary to help you understand the overall context.)\n{self.summary}\n<LaTeX text>:\n{text}\n<LaTeX text translation>:"
-                }
-            ],
-            "temperature": 0.7,
-            # "max_length": 100000,
-            "max_new_tokens": 8192
-        }
-
-        headers = {
-            "Authorization": f"Bearer {self.API_KEY}",
-            "Content-Type": "application/json"
-        }
-
-        # if fail_part == "1":
-        #     print(f"<summary>\n{self.summary}\n<LaTeX text>\n{text}")
-        
-        for attempt in range(1, 4):
-            try:
-                response = requests.post(self.base_url, json=payload, headers=headers, timeout=100)
-                response.raise_for_status()  
-                result = response.json()
-                return result["choices"][0]["message"]["content"].strip()
-            except requests.exceptions.RequestException as e:
-                # print(f"⚠️ The {attempt}th request to translate {fail_part} failed: {e}")
-                if attempt < 3:
-                    time.sleep(5)  
-                else:
-                    self.have_fail_parts = True
-                    if type == 'sec':
-                        self.fail_section_nums.append(fail_part)
-                    elif type == 'cap':
-                        self.fail_caption_phs.append(fail_part)
-                    else :
-                        self.fail_env_phs.append(fail_part)
-
-                    print(f"❌ Failed to translate text, return the original text:{fail_part}. {e}")
-                    return text  
-                
-    def _request_llm_for_trans_with_prev(self, 
-                               system_prompt: str, 
-                               text: str, 
-                               fail_part: str, 
-                               type: str):
-        
-        payload = {
-            "model": f"{self.model}",
-            "messages": [
-                {
-                    "role": "system", 
-                    "content": f"{system_prompt}\n<previous text>:\n{self.prev_text}\n<previous translation>:\n{self.prev_transed_text}\nNow, please translate the following new paragraph. Maintain the tone, style, and terminology from the context provided."
-                },
-                {
-                    "role": "user", 
-                    "content": f"[Current LaTeX Paragraph]:\n{text}"
-                }
-            ],
-            "temperature": 0.7,
-            # "max_length": 100000,
-            "max_new_tokens": 8192
-        }
-
-        headers = {
-            "Authorization": f"Bearer {self.API_KEY}",
-            "Content-Type": "application/json"
-        }
-
-        # if fail_part == "1":
-        #     print(f"<summary>\n{self.summary}\n<LaTeX text>\n{text}")
-        
-        for attempt in range(1, 4):
-            try:
-                response = requests.post(self.base_url, json=payload, headers=headers, timeout=100)
-                response.raise_for_status()  
-                result = response.json()
-                return result["choices"][0]["message"]["content"].strip()
-            except requests.exceptions.RequestException as e:
-                # print(f"⚠️ The {attempt}th request to translate {fail_part} failed: {e}")
-                if attempt < 3:
-                    time.sleep(5)  
-                else:
-                    self.have_fail_parts = True
-                    if type == 'sec':
-                        self.fail_section_nums.append(fail_part)
-                    elif type == 'cap':
-                        self.fail_caption_phs.append(fail_part)
-                    else :
-                        self.fail_env_phs.append(fail_part)
-
-                    print(f"❌ Failed to translate text, return the original text:{fail_part}. {e}")
-                    return text  
-                
-    def _request_llm_for_trans_with_prev_terms(self, 
-                               system_prompt: str, 
-                               text: str, 
-                               fail_part: str, 
-                               type: str):
-        
-        payload = {
-            "model": f"{self.model}",
-            "messages": [
-                {
-                    "role": "system", 
-                    "content": f"{system_prompt}\nWhen translating, you must strictly use the following glossary for substitution. This is the highest priority rule to ensure the consistency of terms throughout the text.\n<Glossary>:\n{self.term_dict}\nTo ensure consistency in terminology and style, here is the context of the preceding paragraph:\n<previous text>:\n{self.prev_text}\n<previous translation>:\n{self.prev_transed_text}\nNow, please translate the following new paragraph. Maintain the tone, style, and terminology from the context provided."
-                },
-                {
-                    "role": "user", 
-                    "content": f"[Current LaTeX Paragraph]:\n{text}"
-                }
-            ],
-            "temperature": 0.7,
-            # "max_length": 100000,
-            "max_new_tokens": 8192
-        }
-
-        headers = {
-            "Authorization": f"Bearer {self.API_KEY}",
-            "Content-Type": "application/json"
-        }
-
-        # if fail_part == "1":
-        #     print(f"<summary>\n{self.summary}\n<LaTeX text>\n{text}")
-        
-        for attempt in range(1, 4):
-            try:
-                response = requests.post(self.base_url, json=payload, headers=headers, timeout=100)
-                response.raise_for_status()  
-                result = response.json()
-                return result["choices"][0]["message"]["content"].strip()
-            except requests.exceptions.RequestException as e:
-                # print(f"⚠️ The {attempt}th request to translate {fail_part} failed: {e}")
-                if attempt < 3:
-                    time.sleep(5)  
-                else:
-                    self.have_fail_parts = True
-                    if type == 'sec':
-                        self.fail_section_nums.append(fail_part)
-                    elif type == 'cap':
-                        self.fail_caption_phs.append(fail_part)
-                    else :
-                        self.fail_env_phs.append(fail_part)
-
-                    print(f"❌ Failed to translate text, return the original text:{fail_part}. {e}")
-                    return text  
              
     async def _request_llm_for_extract_terms(self, system_prompt, src, tgt,
                                        session: aiohttp.ClientSession) -> str:
@@ -1133,11 +918,10 @@ class TranslatorAgent(BaseToolAgent):
 
         return "\n".join(merged_content)
 
-
     def build_term_dict(self):
         if self.user_term:
             df = pd.read_csv(self.user_term, header=None, names=['English Term', 'Chinese Translation'])
-            self.term_dict = dict(zip(df['English Term'], df['Chinese Translation']))
+            self.term_dict.update(zip(df['English Term'], df['Chinese Translation']))
         else:
             arxiv_id = os.path.basename(self.project_dir)
             if self.category.get(arxiv_id):
@@ -1146,7 +930,7 @@ class TranslatorAgent(BaseToolAgent):
                     file_path = os.path.join('terms', f'{category}.csv')
                     try:
                         df = pd.read_csv(file_path, header=None, names=['English Term', 'Chinese Translation'])
-                        self.term_dict = dict(zip(df['English Term'], df['Chinese Translation']))
+                        self.term_dict.update(zip(df['English Term'], df['Chinese Translation']))
                         term_dict_loaded = True
 
                     except FileNotFoundError:
@@ -1156,13 +940,54 @@ class TranslatorAgent(BaseToolAgent):
                     try:
                         df = pd.read_csv('terms/default.csv', header=None,
                                          names=['English Term', 'Chinese Translation'])
-                        self.term_dict = dict(zip(df['English Term'], df['Chinese Translation']))
+                        self.term_dict.update(zip(df['English Term'], df['Chinese Translation']))
                     except FileNotFoundError as e:
                         print(f"Error: Default terminology file not found: {e}")
             else:
                 try:
                     df = pd.read_csv('terms/default.csv', header=None,
                                      names=['English Term', 'Chinese Translation'])
-                    self.term_dict = dict(zip(df['English Term'], df['Chinese Translation']))
+                    self.term_dict.update(zip(df['English Term'], df['Chinese Translation']))
                 except FileNotFoundError as e:
                     print(f"Error: Default terminology file not found: {e}")
+
+    def add_placeholder(self):
+
+        # 将caption、env、input以及newcommand中的占位符加入词表
+        caption_path = os.path.join(self.output_dir, "captions_map.json")
+        input_path = os.path.join(self.output_dir, "inputs_map.json")
+        env_path = os.path.join(self.output_dir, "envs_map.json")
+        command_path = os.path.join(self.output_dir, "newcommands_map.json")
+
+        # 初始化结果列表
+        placeholder_list = []
+
+        with open(input_path, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+        for item in data:
+            if "begin" in item:
+                placeholder_list.append(item["begin"])
+            if "end" in item:
+                placeholder_list.append(item["end"])
+
+        with open(env_path, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+        for item in data:
+            if "placeholder" in item:
+                placeholder_list.append(item["placeholder"])
+
+        with open(caption_path, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+        for item in data:
+            if "placeholder" in item:
+                placeholder_list.append(item["placeholder"])
+
+        with open(command_path, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+        for item in data:
+            if "placeholder" in item:
+                placeholder_list.append(item["placeholder"])
+
+        for item in placeholder_list:
+            self.term_dict[item] = item
+
